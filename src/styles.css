@@ -1,0 +1,263 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Sneha's Wrapzz — Luxury Gifting Design System
+ * Warm ivory palette, editorial typography, soft motion.
+ * All colors are semantic tokens. Never hardcode.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand tokens */
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-warm-white: var(--warm-white);
+  --color-champagne: var(--champagne);
+  --color-rose-gold: var(--rose-gold);
+  --color-bronze: var(--bronze);
+  --color-charcoal: var(--charcoal);
+  --color-warm-gray: var(--warm-gray);
+  --color-olive: var(--olive);
+  --color-sage: var(--sage);
+  --color-beige: var(--beige);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-deep: var(--terracotta-deep);
+
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 10px 30px -12px color-mix(in oklab, var(--bronze) 20%, transparent);
+  --shadow-lift: 0 20px 60px -20px color-mix(in oklab, var(--bronze) 28%, transparent);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Brand palette (converted from hex to oklch, warm) */
+  --ivory: oklch(0.985 0.012 70);      /* #FFFBF8 */
+  --cream: oklch(0.99 0.008 90);       /* #FFFEF9 */
+  --warm-white: oklch(0.97 0.008 75);  /* #F9F7F4 */
+  --champagne: oklch(0.79 0.045 55);   /* #D4AF9F */
+  --rose-gold: oklch(0.74 0.055 65);   /* #C9A885 */
+  --bronze: oklch(0.53 0.045 65);      /* #8B7355 */
+  --charcoal: oklch(0.23 0.012 50);    /* #2D2623 */
+  --warm-gray: oklch(0.47 0.008 55);   /* #6B6360 */
+  --olive: oklch(0.58 0.03 120);       /* #7A8B6B */
+  --sage: oklch(0.62 0.06 140);        /* #6B9A6B */
+  --beige: oklch(0.91 0.012 75);       /* #E8E3DD */
+  --terracotta: oklch(0.62 0.115 40);  /* warm terracotta for B2B CTAs */
+  --terracotta-deep: oklch(0.52 0.11 38);
+
+  --background: var(--ivory);
+  --foreground: var(--charcoal);
+  --card: var(--cream);
+  --card-foreground: var(--charcoal);
+  --popover: var(--cream);
+  --popover-foreground: var(--charcoal);
+  --primary: var(--sage);
+  --primary-foreground: var(--ivory);
+  --secondary: var(--warm-white);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--warm-white);
+  --muted-foreground: var(--warm-gray);
+  --accent: var(--champagne);
+  --accent-foreground: var(--charcoal);
+  --destructive: oklch(0.55 0.15 25);
+  --destructive-foreground: var(--ivory);
+  --border: var(--beige);
+  --input: var(--beige);
+  --ring: var(--champagne);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--color-foreground);
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--champagne) 40%, transparent);
+  }
+}
+
+/* Subtle paper grain overlay utility */
+@utility paper-grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: radial-gradient(
+        circle at 1px 1px,
+        color-mix(in oklab, var(--bronze) 8%, transparent) 1px,
+        transparent 0
+      );
+    background-size: 3px 3px;
+  }
+}
+
+/* Elegant animated underline for text links */
+@utility link-underline {
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+@utility ribbon-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--champagne) 60%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes soft-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ribbon-sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(2deg) translateY(-4px); }
+}
+@keyframes float-particle {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.6); }
+  30%  { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-140px) scale(1.1); }
+}
+
+@utility animate-reveal {
+  animation: reveal-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@utility animate-soft-fade {
+  animation: soft-fade 1200ms ease-out both;
+}
+@utility animate-ribbon-sway {
+  animation: ribbon-sway 6s ease-in-out infinite;
+}
+
+@utility card-lift {
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--sage);
+  color: var(--ivory);
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-soft);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  &:hover { transform: scale(1.03); box-shadow: var(--shadow-lift); }
+}
+
+@utility btn-terracotta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background: var(--terracotta);
+  color: var(--ivory);
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-soft);
+  transition: transform 300ms ease, box-shadow 300ms ease, background 300ms ease;
+  &:hover { transform: scale(1.03); background: var(--terracotta-deep); box-shadow: var(--shadow-lift); }
+}
+
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--beige);
+  background: var(--cream);
+  color: var(--charcoal);
+  padding: 0.85rem 1.6rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color 300ms ease, background 300ms ease;
+  &:hover { border-color: var(--bronze); background: var(--ivory); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
