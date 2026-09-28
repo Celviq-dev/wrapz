@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { CATEGORIES, OCCASIONS, BUDGETS } from "@/data/catalog";
+import { COLLECTIONS } from "@/data/catalog";
 
 const BASE_URL = "https://snehawrapzz.lovable.app";
 
@@ -12,17 +12,10 @@ interface SitemapEntry {
 
 const STATIC_PATHS: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/personalized", changefreq: "weekly", priority: "0.9" },
+  { path: "/collections", changefreq: "weekly", priority: "0.9" },
   { path: "/corporate", changefreq: "weekly", priority: "0.9" },
-  { path: "/packaging", changefreq: "weekly", priority: "0.9" },
-  { path: "/festive", changefreq: "weekly", priority: "0.8" },
-  { path: "/build-hamper", changefreq: "monthly", priority: "0.8" },
-  { path: "/bulk-orders", changefreq: "monthly", priority: "0.8" },
-  { path: "/occasions", changefreq: "monthly", priority: "0.7" },
   { path: "/about", changefreq: "yearly", priority: "0.5" },
-  { path: "/clients", changefreq: "monthly", priority: "0.5" },
-  { path: "/journal", changefreq: "monthly", priority: "0.5" },
-  { path: "/contact", changefreq: "yearly", priority: "0.6" },
+  { path: "/contact", changefreq: "yearly", priority: "0.7" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -31,20 +24,10 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           ...STATIC_PATHS,
-          ...CATEGORIES.map((c) => ({
-            path: `/category/${c.slug}`,
+          ...COLLECTIONS.map((c) => ({
+            path: `/collections/${c.slug}`,
             changefreq: "monthly" as const,
-            priority: "0.7",
-          })),
-          ...OCCASIONS.map((o) => ({
-            path: `/occasion/${o.slug}`,
-            changefreq: "monthly" as const,
-            priority: "0.6",
-          })),
-          ...BUDGETS.map((b) => ({
-            path: `/budget/${b.slug}`,
-            changefreq: "monthly" as const,
-            priority: "0.6",
+            priority: "0.8",
           })),
         ];
 

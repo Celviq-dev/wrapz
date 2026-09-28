@@ -1,109 +1,134 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+
 import { PageHero } from "@/components/site/PageHero";
-import { SectionHeader } from "@/components/site/SectionHeader";
-import { CategoryCard } from "@/components/site/CategoryCard";
-import { LeadForm } from "@/components/site/LeadForm";
-import { StatsRow } from "@/components/site/StatsRow";
+import { Figure } from "@/components/site/Figure";
 import { Reveal } from "@/components/site/Reveal";
-import { CATEGORIES } from "@/data/catalog";
-import hero from "@/assets/collection-corporate.jpg";
+import { Contact } from "@/components/site/Contact";
+import { CORPORATE, STUDIO, media } from "@/data/catalog";
 
-const STORY_STATS: ReadonlyArray<readonly [string, string]> = [
-  ["120+", "brands trust us"],
-  ["20 – 20k", "quantity range"],
-  ["48h", "sample turnaround"],
-  ["Pan-India", "delivery"],
-];
-
-const PROMISE = [
-  { t: "Brand-aligned", d: "Colour palette, monogram, foil — matched to your identity." },
-  { t: "Scale-ready", d: "From 20-piece leadership sets to 5,000-piece festive rollouts." },
-  { t: "Sustainable options", d: "Recycled boards, cotton fill, plantable finishes." },
-  { t: "Managed logistics", d: "Consolidated dispatches or multi-address, tracked end-to-end." },
-];
+const SITE = "https://snehawrapzz.lovable.app";
+const TITLE = "Corporate & Bulk Gifting — Sneha's Wrapzz, Hyderabad";
+const DESC =
+  "Repeat-run gifting from Sneha's Wrapzz: eco hamper boxes with compartmented dry fruit trays, jute favour boxes and totes, ribbon-tied festive boxes and wrapped potli pouches for wedding return gifts.";
 
 export const Route = createFileRoute("/corporate")({
   head: () => ({
     meta: [
-      { title: "Corporate Gifting & Bulk Hampers — Sneha Wrapzz" },
-      { name: "description", content: "Employee onboarding kits, festive corporate hampers, client gifting, and executive presentation — designed, branded and delivered pan-India." },
-      { property: "og:title", content: "Corporate Gifting & Bulk Hampers — Sneha Wrapzz" },
-      { property: "og:description", content: "Considered corporate gifting at scale — joining kits, festive hampers, client and leadership gifts." },
-      { property: "og:url", content: "https://snehawrapzz.lovable.app/corporate" },
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
+      { property: "og:url", content: `${SITE}/corporate` },
+      { property: "og:image", content: `${SITE}/media/corporate/corporate-01.webp` },
     ],
-    links: [{ rel: "canonical", href: "https://snehawrapzz.lovable.app/corporate" }],
+    links: [{ rel: "canonical", href: `${SITE}/corporate` }],
   }),
   component: CorporatePage,
 });
 
+/**
+ * What the source material supports for bulk is *order-scale evidence* — grids of
+ * identical boxes and totes — rather than a service menu. The page leads with that
+ * photography instead of inventing packaging options or onboarding-kit products.
+ */
 function CorporatePage() {
-  const cats = CATEGORIES.filter((c) => c.group === "corporate");
   return (
     <>
       <PageHero
-        tone="cream"
-        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Corporate" }]}
-        eyebrow="For Businesses"
-        title="Corporate gifting"
-        italic="that feels considered."
-        description="Joining kits, festive hampers, client appreciations and executive gifts — designed on-brand and delivered at scale."
-        image={hero}
+        tone="warm"
+        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Corporate & Bulk" }]}
+        eyebrow="For companies, weddings and events"
+        title="Corporate & bulk gifting"
+        description={DESC}
+        asset={media("corporate-01")}
         actions={
           <>
-            <Link to="/bulk-orders" className="btn-terracotta">Request bulk quote →</Link>
-            <a href="#catalog" className="btn-outline">Download catalog</a>
+            <a
+              href={`${STUDIO.whatsappHref}?text=${encodeURIComponent(
+                "Hello, I'd like a quote for a bulk gifting order.",
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+              className="min-h-[48px] btn-primary"
+            >
+              Request a bulk quote
+            </a>
+            <a
+              href={STUDIO.phoneHref}
+              className="link-underline inline-flex min-h-[44px] items-center text-sm font-semibold text-charcoal"
+            >
+              {STUDIO.phone}
+            </a>
           </>
         }
       />
 
-      <section className="py-20 md:py-24 bg-ivory">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-          <SectionHeader eyebrow="What we deliver" title="Corporate" italic="categories." />
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {cats.map((c) => (
-              <CategoryCard key={c.slug} to="/category/$slug" params={{ slug: c.slug }} image={c.image} eyebrow={c.eyebrow} title={c.title} description={c.description} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 bg-charcoal text-ivory">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-          <Reveal className="max-w-2xl">
-            <span className="text-xs font-medium uppercase tracking-[0.22em] text-champagne">— Our Promise</span>
-            <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold leading-[1.12]">
-              Managed end-to-end.
-              <br /><span className="italic text-champagne">You just approve.</span>
-            </h2>
-          </Reveal>
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {PROMISE.map((p) => (
-              <div key={p.t} className="rounded-2xl border border-ivory/15 bg-ivory/[0.04] p-6">
-                <h3 className="font-display text-lg font-semibold text-ivory">{p.t}</h3>
-                <p className="mt-2 text-sm text-ivory/70 leading-relaxed">{p.d}</p>
+      {CORPORATE.groups.map((group, gi) => (
+        <section
+          key={group.name}
+          className={gi % 2 === 0 ? "bg-ivory py-14 md:py-20" : "bg-cream py-14 md:py-20"}
+        >
+          <div className="mx-auto max-w-[1380px] px-5 md:px-8">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+              <div className="lg:col-span-4">
+                <Reveal>
+                  <h2 className="font-display text-2xl leading-[1.1] tracking-[-0.03em] text-charcoal md:text-3xl">
+                    {group.name}
+                  </h2>
+                  <ul className="mt-6 space-y-2 border-t border-beige pt-5">
+                    {group.items.map((item) => (
+                      <li key={item} className="text-sm leading-[1.6] text-warm-gray">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </Reveal>
               </div>
-            ))}
-          </div>
-          <div className="mt-14">
-            <StatsRow variant="dark" stats={STORY_STATS} />
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 bg-warm-white">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-          <div>
-            <SectionHeader eyebrow="Bulk Quote" title="Tell us what you're" italic="planning." description="Timelines, quantities, and any personalization — we'll come back with three concept options and pricing within one working day." />
-            <div id="catalog" className="mt-8 rounded-2xl border border-beige bg-cream p-6 shadow-soft">
-              <div className="text-[11px] uppercase tracking-[0.18em] text-bronze">Corporate Catalog</div>
-              <div className="mt-2 font-display text-xl text-charcoal">Download the 2026 catalog</div>
-              <p className="mt-2 text-sm text-warm-gray">A 40-page PDF with case studies, packaging systems, and price bands.</p>
-              <a href="mailto:hello@snehawrapzz.com?subject=Send%20me%20the%20corporate%20catalog" className="btn-outline mt-4">Email me the catalog</a>
+              <div className="lg:col-span-8">
+                <div className="grid grid-cols-2 gap-4 md:gap-5">
+                  {group.gallery
+                    .filter((slug) => slug !== CORPORATE.hero)
+                    .map((slug, i) => (
+                      <Reveal key={slug} delay={(i % 2) * 70}>
+                        <Figure
+                          asset={media(slug)}
+                          ratio={i % 3 === 0 ? "landscape" : "square"}
+                          sizes="(min-width: 1024px) 38vw, 45vw"
+                        />
+                      </Reveal>
+                    ))}
+                </div>
+              </div>
             </div>
           </div>
-          <LeadForm title="Request a corporate quote" subtitle="No spam, just gifting." variant="terracotta" />
+        </section>
+      ))}
+
+      <section className="bg-bottle-dark py-14 text-ivory md:py-16">
+        <div className="mx-auto max-w-[1380px] px-5 md:px-8">
+          <h2 className="font-display text-2xl leading-[1.1] text-ivory md:text-3xl">
+            What to include in a bulk enquiry
+          </h2>
+          <ol className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {[
+              ["Quantity", "How many identical sets you need, and whether the count is firm."],
+              ["Date", "When they need to be ready, and whether delivery is one drop or several."],
+              [
+                "The brief",
+                "The occasion, roughly what should go inside, and any presentation you have in mind.",
+              ],
+            ].map(([t, d], i) => (
+              <li key={t}>
+                <div className="font-display text-3xl text-aged-brass">0{i + 1}</div>
+                <h3 className="mt-3 font-display text-lg text-ivory">{t}</h3>
+                <p className="mt-2 text-sm leading-[1.75] text-ivory/70">{d}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
+
+      <Contact />
     </>
   );
 }

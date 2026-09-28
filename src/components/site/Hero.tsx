@@ -1,144 +1,95 @@
-import { useEffect, useState } from "react";
-import heroGift from "@/assets/hero-gift.jpg";
+import { Link } from "@tanstack/react-router";
 
+import { Figure } from "./Figure";
+import { STUDIO, TOTAL_ITEMS, media } from "@/data/catalog";
+
+/**
+ * Editorial hero: one large photograph carries the page, with two supporting
+ * frames stacked beside it. The copy stays short and factual — the catalog's own
+ * range is the claim, not an adjective about it.
+ */
 export function Hero() {
-  const [scrollY, setScrollY] = useState(0);
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const parallax = Math.min(scrollY * 0.15, 80);
+  // A silver piece styled as a gift rather than as decor: it signals both halves
+  // of the catalog at once. Deliberately not a collection hero (those appear
+  // lower down this same page), and deliberately not the wedding portrait frame,
+  // which shows identifiable faces and belongs in its own subcategory.
+  const lead = media("serveware-trays-11");
+  const support = [media("diyas-candles-13"), media("hampers-12")];
 
   return (
-    <section
-      id="top"
-      className="paper-grain relative overflow-hidden bg-ivory pt-[120px] pb-24 md:pt-[140px] md:pb-32"
-    >
-      {/* soft radial warm glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-0"
-        style={{
-          background:
-            "radial-gradient(60% 60% at 70% 30%, color-mix(in oklab, var(--champagne) 22%, transparent), transparent 70%)",
-        }}
-      />
+    <section className="relative overflow-hidden border-b border-beige bg-cream">
+      <div className="mx-auto max-w-[1380px] px-5 pt-12 pb-14 md:px-8 md:pt-16 md:pb-20">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+          {/* Type block */}
+          <div className="lg:col-span-4 lg:pt-6">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-bronze">
+              {STUDIO.legalName} · {STUDIO.addressShort}
+            </p>
+            <h1 className="mt-6 font-display text-[2.6rem] leading-[0.98] tracking-[-0.035em] text-charcoal sm:text-6xl lg:text-[4.1rem]">
+              Silver, light
+              <br />
+              and wrapped
+              <br />
+              <span className="text-bronze">gifting.</span>
+            </h1>
+            <p className="mt-7 max-w-md text-base leading-[1.75] text-warm-gray">
+              A gifting studio in Secunderabad working across silver decor and devotional pieces,
+              festive diyas and candles, serveware, and wrapped hampers put together to your brief.
+            </p>
 
-      {/* floating particles */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
-        {[...Array(9)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute rounded-full bg-champagne/60"
-            style={{
-              left: `${(i * 11 + 8) % 96}%`,
-              bottom: `${(i * 13) % 30}%`,
-              width: `${4 + (i % 3) * 2}px`,
-              height: `${4 + (i % 3) * 2}px`,
-              animation: `float-particle ${6 + (i % 4)}s ease-in-out ${i * 0.7}s infinite`,
-            }}
-          />
-        ))}
-      </div>
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link to="/collections" className="btn-primary min-h-[48px]">
+                See the collections
+              </Link>
+              <a
+                href={STUDIO.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                className="link-underline inline-flex min-h-[44px] items-center text-sm font-semibold text-charcoal"
+              >
+                Enquire on WhatsApp
+              </a>
+            </div>
 
-      <div className="relative z-10 mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-16 px-5 md:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-24">
-        {/* Text */}
-        <div className="animate-reveal">
-          <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-            <span className="h-px w-8 bg-champagne" />
-            Handcrafted in India
-          </span>
-          <h1 className="mt-6 font-display text-[44px] leading-[1.08] font-semibold text-charcoal sm:text-[56px] md:text-[68px] lg:text-[72px]">
-            Every gift tells
-            <br />
-            <span className="italic text-bronze">a story.</span>
-          </h1>
-          <p className="mt-7 max-w-[520px] text-lg leading-[1.7] text-warm-gray md:text-[19px]">
-            Handcrafted wrapping, personalized hampers, and quiet moments of
-            wonder — unfolded slowly, ribbon by ribbon.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="#collections"
-              className="inline-flex items-center gap-2 rounded-lg bg-sage px-7 py-3.5 text-sm font-semibold text-ivory shadow-soft transition-all duration-300 hover:scale-[1.03] hover:shadow-lift"
-            >
-              Explore Collections
-              <span aria-hidden>→</span>
-            </a>
-            <a
-              href="#about"
-              className="link-underline text-sm font-medium text-charcoal"
-            >
-              Our craft
-            </a>
+            <dl className="mt-11 grid grid-cols-3 gap-4 border-t border-beige pt-6">
+              {[
+                [String(TOTAL_ITEMS), "catalogued pieces"],
+                ["6", "collections"],
+                ["5000+", "repeat customers"],
+              ].map(([value, label]) => (
+                <div key={label}>
+                  <dt className="font-display text-xl text-charcoal md:text-2xl">{value}</dt>
+                  <dd className="mt-0.5 text-xs leading-snug text-warm-gray">{label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          {/* small meta strip */}
-          <div className="mt-14 grid grid-cols-3 gap-6 max-w-[460px]">
-            {[
-              ["5,000+", "gifts wrapped"],
-              ["100%", "customizable"],
-              ["48h", "quick turnaround"],
-            ].map(([n, l]) => (
-              <div key={l}>
-                <div className="font-display text-2xl font-semibold text-charcoal">
-                  {n}
-                </div>
-                <div className="mt-1 text-xs uppercase tracking-widest text-warm-gray">
-                  {l}
-                </div>
-              </div>
+          {/* Lead image */}
+          <figure className="lg:col-span-5">
+            <Figure
+              asset={lead}
+              ratio="tall"
+              priority
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              className="hero-image-reveal"
+            />
+            <figcaption className="mt-3 text-xs text-warm-gray">
+              Silver peacock bowl, from Serveware &amp; Trays
+            </figcaption>
+          </figure>
+
+          {/* Supporting stack */}
+          <div className="grid grid-cols-2 gap-4 lg:col-span-3 lg:grid-cols-1 lg:gap-5">
+            {support.map((asset, i) => (
+              <Figure
+                key={asset.slug}
+                asset={asset}
+                ratio={i === 0 ? "portrait" : "square"}
+                sizes="(min-width: 1024px) 24vw, 50vw"
+                priority={i === 0}
+              />
             ))}
-          </div>
-        </div>
-
-        {/* Image */}
-        <div className="relative">
-          <div
-            className="relative mx-auto aspect-[4/5] w-full max-w-[520px] overflow-hidden rounded-3xl shadow-lift animate-soft-fade"
-            style={{ transform: `translateY(${parallax * 0.3}px)` }}
-          >
-            <img
-              src={heroGift}
-              alt="Ivory gift box tied with champagne satin ribbon on linen"
-              width={1400}
-              height={1600}
-              className="h-full w-full object-cover"
-            />
-            {/* subtle warm overlay */}
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 55%, color-mix(in oklab, var(--ivory) 30%, transparent))",
-              }}
-            />
-          </div>
-
-          {/* floating chip */}
-          <div
-            className="absolute -left-2 top-8 hidden md:flex items-center gap-3 rounded-2xl border border-beige bg-cream/90 backdrop-blur-md px-4 py-3 shadow-soft animate-ribbon-sway"
-            style={{ transform: `translateY(${-parallax * 0.1}px)` }}
-          >
-            <span className="h-2 w-2 rounded-full bg-sage" />
-            <span className="text-xs font-medium text-charcoal">
-              New: Festival Edit ’26
-            </span>
-          </div>
-
-          <div
-            className="absolute -right-4 bottom-10 hidden md:block rounded-2xl border border-beige bg-cream/90 backdrop-blur-md px-5 py-4 shadow-soft max-w-[220px]"
-            style={{ transform: `translateY(${parallax * 0.15}px)` }}
-          >
-            <p className="font-display italic text-sm text-charcoal leading-snug">
-              &ldquo;It felt like opening a memory.&rdquo;
-            </p>
-            <p className="mt-1 text-[11px] uppercase tracking-widest text-warm-gray">
-              — Aanya, Mumbai
-            </p>
           </div>
         </div>
       </div>

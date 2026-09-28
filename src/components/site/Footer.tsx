@@ -1,99 +1,109 @@
 import { Link } from "@tanstack/react-router";
 
-const COLUMNS = [
-  {
-    heading: "Personalized",
-    links: [
-      { to: "/personalized", label: "All personalized gifts" },
-      { to: "/category/$slug", params: { slug: "gifts-for-her" }, label: "Gifts for Her" },
-      { to: "/category/$slug", params: { slug: "gifts-for-him" }, label: "Gifts for Him" },
-      { to: "/category/$slug", params: { slug: "keepsake-boxes" }, label: "Keepsake Boxes" },
-      { to: "/category/$slug", params: { slug: "wedding-return-gifts" }, label: "Wedding Return Gifts" },
-    ],
-  },
-  {
-    heading: "Corporate",
-    links: [
-      { to: "/corporate", label: "Corporate gifting" },
-      { to: "/category/$slug", params: { slug: "employee-onboarding-kits" }, label: "Joining Kits" },
-      { to: "/category/$slug", params: { slug: "festive-corporate" }, label: "Festive Hampers" },
-      { to: "/category/$slug", params: { slug: "leadership-gifts" }, label: "Leadership Gifts" },
-      { to: "/bulk-orders", label: "Bulk Orders" },
-    ],
-  },
-  {
-    heading: "Packaging",
-    links: [
-      { to: "/packaging", label: "Packaging solutions" },
-      { to: "/category/$slug", params: { slug: "rigid-boxes" }, label: "Rigid Boxes" },
-      { to: "/category/$slug", params: { slug: "wooden-boxes" }, label: "Wooden Boxes" },
-      { to: "/category/$slug", params: { slug: "paper-bags" }, label: "Paper Bags" },
-      { to: "/category/$slug", params: { slug: "custom-branded-packaging" }, label: "Custom Branded" },
-    ],
-  },
-  {
-    heading: "Studio",
-    links: [
-      { to: "/about", label: "About us" },
-      { to: "/clients", label: "Clients & stories" },
-      { to: "/journal", label: "Gifting Journal" },
-      { to: "/build-hamper", label: "Build a Hamper" },
-      { to: "/contact", label: "Contact" },
-    ],
-  },
-] as const;
+import { COLLECTIONS, STUDIO } from "@/data/catalog";
 
 export function Footer() {
   return (
-    <footer className="bg-charcoal text-ivory pt-20 pb-10">
+    <footer className="bg-bottle-dark pb-8 pt-16 text-ivory md:pt-20">
       <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
-          <div className="md:col-span-2">
-            <Link to="/" className="flex items-baseline gap-2">
-              <span className="font-display text-3xl font-semibold text-ivory">Sneha</span>
-              <span className="font-display italic text-xl text-champagne">Wrapzz</span>
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <Link to="/" className="inline-flex min-h-[44px] items-baseline gap-2">
+              <span className="font-display text-3xl text-ivory">Sneha&apos;s</span>
+              <span className="text-xs font-semibold tracking-[0.17em] text-aged-brass">
+                WRAPZZ
+              </span>
             </Link>
-            <p className="mt-5 text-sm text-ivory/70 leading-[1.75] max-w-xs">
-              Considered gifting and packaging craft — for people who mark
-              moments and brands that make them memorable.
+            <p className="mt-5 max-w-sm text-sm leading-[1.8] text-ivory/75">
+              {STUDIO.legalName}. Silver decor and devotional pieces, festive diyas and candles,
+              serveware, and wrapped hampers — from Secunderabad, Hyderabad.
             </p>
-            <a
-              href="#catalog"
-              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-ivory/25 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-ivory hover:border-champagne hover:text-champagne transition"
-            >
-              Download Catalog →
-            </a>
           </div>
 
-          {COLUMNS.map((col) => (
-            <div key={col.heading}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-champagne">
-                {col.heading}
-              </div>
-              <ul className="mt-4 space-y-3 text-sm text-ivory/80">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <Link
-                      to={l.to as string}
-                      params={(l as { params?: Record<string, string> }).params as never}
-                      className="hover:text-champagne transition-colors"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <nav className="md:col-span-4" aria-label="Collections">
+            <h2 className="text-sm font-medium text-aged-brass">Collections</h2>
+            <ul className="mt-4 space-y-1">
+              {COLLECTIONS.map((c) => (
+                <li key={c.slug}>
+                  <Link
+                    to="/collections/$slug"
+                    params={{ slug: c.slug }}
+                    className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                  >
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/corporate"
+                  className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                >
+                  Corporate &amp; Bulk Gifting
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          <div className="md:col-span-3">
+            <h2 className="text-sm font-medium text-aged-brass">Get in touch</h2>
+            <ul className="mt-4 space-y-1">
+              <li>
+                <a
+                  href={STUDIO.phoneHref}
+                  className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                >
+                  {STUDIO.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={STUDIO.whatsappHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                >
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                >
+                  Send an enquiry
+                </Link>
+              </li>
+              <li>
+                <a
+                  href={STUDIO.reviewsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                >
+                  Reviews on Google
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/about"
+                  className="inline-flex min-h-[44px] items-center text-sm text-ivory/80 transition-colors hover:text-aged-brass"
+                >
+                  About the studio
+                </Link>
+              </li>
+            </ul>
+            <address className="mt-4 text-sm not-italic leading-[1.7] text-ivory/60">
+              {STUDIO.address}
+            </address>
+          </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-ivory/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-ivory/60">
-          <div>© {new Date().getFullYear()} Sneha Wrapzz. Handcrafted in India.</div>
-          <div className="flex gap-5">
-            <a href="mailto:hello@snehawrapzz.com" className="hover:text-champagne">hello@snehawrapzz.com</a>
-            <a href="https://instagram.com" className="hover:text-champagne">Instagram</a>
-            <a href="https://wa.me/919999999999" className="hover:text-champagne">WhatsApp</a>
+        <div className="mt-14 flex flex-col gap-3 border-t border-ivory/15 pt-6 text-xs text-ivory/60 md:flex-row md:items-center md:justify-between">
+          <div>
+            © {new Date().getFullYear()} {STUDIO.legalName}
           </div>
+          <div>{STUDIO.addressShort}</div>
         </div>
       </div>
     </footer>

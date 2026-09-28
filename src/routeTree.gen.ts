@@ -9,76 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as PersonalizedRouteImport } from './routes/personalized'
-import { Route as PackagingRouteImport } from './routes/packaging'
-import { Route as OccasionsRouteImport } from './routes/occasions'
-import { Route as JournalRouteImport } from './routes/journal'
-import { Route as FestiveRouteImport } from './routes/festive'
-import { Route as CorporateRouteImport } from './routes/corporate'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ClientsRouteImport } from './routes/clients'
-import { Route as BulkOrdersRouteImport } from './routes/bulk-orders'
-import { Route as BuildHamperRouteImport } from './routes/build-hamper'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as OccasionSlugRouteImport } from './routes/occasion.$slug'
-import { Route as CategorySlugRouteImport } from './routes/category.$slug'
-import { Route as BudgetSlugRouteImport } from './routes/budget.$slug'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CorporateRouteImport } from './routes/corporate'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
+import { Route as CollectionsSlugRouteImport } from './routes/collections.$slug'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PersonalizedRoute = PersonalizedRouteImport.update({
-  id: '/personalized',
-  path: '/personalized',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PackagingRoute = PackagingRouteImport.update({
-  id: '/packaging',
-  path: '/packaging',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OccasionsRoute = OccasionsRouteImport.update({
-  id: '/occasions',
-  path: '/occasions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JournalRoute = JournalRouteImport.update({
-  id: '/journal',
-  path: '/journal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FestiveRoute = FestiveRouteImport.update({
-  id: '/festive',
-  path: '/festive',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CorporateRoute = CorporateRouteImport.update({
-  id: '/corporate',
-  path: '/corporate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ClientsRoute = ClientsRouteImport.update({
-  id: '/clients',
-  path: '/clients',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BulkOrdersRoute = BulkOrdersRouteImport.update({
-  id: '/bulk-orders',
-  path: '/bulk-orders',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BuildHamperRoute = BuildHamperRouteImport.update({
-  id: '/build-hamper',
-  path: '/build-hamper',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -86,235 +27,107 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OccasionSlugRoute = OccasionSlugRouteImport.update({
-  id: '/occasion/$slug',
-  path: '/occasion/$slug',
+const CorporateRoute = CorporateRouteImport.update({
+  id: '/corporate',
+  path: '/corporate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategorySlugRoute = CategorySlugRouteImport.update({
-  id: '/category/$slug',
-  path: '/category/$slug',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BudgetSlugRoute = BudgetSlugRouteImport.update({
-  id: '/budget/$slug',
-  path: '/budget/$slug',
+const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
+  id: '/collections/',
+  path: '/collections/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionsSlugRoute = CollectionsSlugRouteImport.update({
+  id: '/collections/$slug',
+  path: '/collections/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/build-hamper': typeof BuildHamperRoute
-  '/bulk-orders': typeof BulkOrdersRoute
-  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/corporate': typeof CorporateRoute
-  '/festive': typeof FestiveRoute
-  '/journal': typeof JournalRoute
-  '/occasions': typeof OccasionsRoute
-  '/packaging': typeof PackagingRoute
-  '/personalized': typeof PersonalizedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/budget/$slug': typeof BudgetSlugRoute
-  '/category/$slug': typeof CategorySlugRoute
-  '/occasion/$slug': typeof OccasionSlugRoute
+  '/collections/$slug': typeof CollectionsSlugRoute
+  '/collections/': typeof CollectionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/build-hamper': typeof BuildHamperRoute
-  '/bulk-orders': typeof BulkOrdersRoute
-  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/corporate': typeof CorporateRoute
-  '/festive': typeof FestiveRoute
-  '/journal': typeof JournalRoute
-  '/occasions': typeof OccasionsRoute
-  '/packaging': typeof PackagingRoute
-  '/personalized': typeof PersonalizedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/budget/$slug': typeof BudgetSlugRoute
-  '/category/$slug': typeof CategorySlugRoute
-  '/occasion/$slug': typeof OccasionSlugRoute
+  '/collections/$slug': typeof CollectionsSlugRoute
+  '/collections': typeof CollectionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/build-hamper': typeof BuildHamperRoute
-  '/bulk-orders': typeof BulkOrdersRoute
-  '/clients': typeof ClientsRoute
   '/contact': typeof ContactRoute
   '/corporate': typeof CorporateRoute
-  '/festive': typeof FestiveRoute
-  '/journal': typeof JournalRoute
-  '/occasions': typeof OccasionsRoute
-  '/packaging': typeof PackagingRoute
-  '/personalized': typeof PersonalizedRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/budget/$slug': typeof BudgetSlugRoute
-  '/category/$slug': typeof CategorySlugRoute
-  '/occasion/$slug': typeof OccasionSlugRoute
+  '/collections/$slug': typeof CollectionsSlugRoute
+  '/collections/': typeof CollectionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/build-hamper'
-    | '/bulk-orders'
-    | '/clients'
     | '/contact'
     | '/corporate'
-    | '/festive'
-    | '/journal'
-    | '/occasions'
-    | '/packaging'
-    | '/personalized'
     | '/sitemap.xml'
-    | '/budget/$slug'
-    | '/category/$slug'
-    | '/occasion/$slug'
+    | '/collections/$slug'
+    | '/collections/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/build-hamper'
-    | '/bulk-orders'
-    | '/clients'
     | '/contact'
     | '/corporate'
-    | '/festive'
-    | '/journal'
-    | '/occasions'
-    | '/packaging'
-    | '/personalized'
     | '/sitemap.xml'
-    | '/budget/$slug'
-    | '/category/$slug'
-    | '/occasion/$slug'
+    | '/collections/$slug'
+    | '/collections'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/build-hamper'
-    | '/bulk-orders'
-    | '/clients'
     | '/contact'
     | '/corporate'
-    | '/festive'
-    | '/journal'
-    | '/occasions'
-    | '/packaging'
-    | '/personalized'
     | '/sitemap.xml'
-    | '/budget/$slug'
-    | '/category/$slug'
-    | '/occasion/$slug'
+    | '/collections/$slug'
+    | '/collections/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  BuildHamperRoute: typeof BuildHamperRoute
-  BulkOrdersRoute: typeof BulkOrdersRoute
-  ClientsRoute: typeof ClientsRoute
   ContactRoute: typeof ContactRoute
   CorporateRoute: typeof CorporateRoute
-  FestiveRoute: typeof FestiveRoute
-  JournalRoute: typeof JournalRoute
-  OccasionsRoute: typeof OccasionsRoute
-  PackagingRoute: typeof PackagingRoute
-  PersonalizedRoute: typeof PersonalizedRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  BudgetSlugRoute: typeof BudgetSlugRoute
-  CategorySlugRoute: typeof CategorySlugRoute
-  OccasionSlugRoute: typeof OccasionSlugRoute
+  CollectionsSlugRoute: typeof CollectionsSlugRoute
+  CollectionsIndexRoute: typeof CollectionsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/personalized': {
-      id: '/personalized'
-      path: '/personalized'
-      fullPath: '/personalized'
-      preLoaderRoute: typeof PersonalizedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/packaging': {
-      id: '/packaging'
-      path: '/packaging'
-      fullPath: '/packaging'
-      preLoaderRoute: typeof PackagingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/occasions': {
-      id: '/occasions'
-      path: '/occasions'
-      fullPath: '/occasions'
-      preLoaderRoute: typeof OccasionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/journal': {
-      id: '/journal'
-      path: '/journal'
-      fullPath: '/journal'
-      preLoaderRoute: typeof JournalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/festive': {
-      id: '/festive'
-      path: '/festive'
-      fullPath: '/festive'
-      preLoaderRoute: typeof FestiveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/corporate': {
-      id: '/corporate'
-      path: '/corporate'
-      fullPath: '/corporate'
-      preLoaderRoute: typeof CorporateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/clients': {
-      id: '/clients'
-      path: '/clients'
-      fullPath: '/clients'
-      preLoaderRoute: typeof ClientsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bulk-orders': {
-      id: '/bulk-orders'
-      path: '/bulk-orders'
-      fullPath: '/bulk-orders'
-      preLoaderRoute: typeof BulkOrdersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/build-hamper': {
-      id: '/build-hamper'
-      path: '/build-hamper'
-      fullPath: '/build-hamper'
-      preLoaderRoute: typeof BuildHamperRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -324,32 +137,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/occasion/$slug': {
-      id: '/occasion/$slug'
-      path: '/occasion/$slug'
-      fullPath: '/occasion/$slug'
-      preLoaderRoute: typeof OccasionSlugRouteImport
+    '/corporate': {
+      id: '/corporate'
+      path: '/corporate'
+      fullPath: '/corporate'
+      preLoaderRoute: typeof CorporateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/category/$slug': {
-      id: '/category/$slug'
-      path: '/category/$slug'
-      fullPath: '/category/$slug'
-      preLoaderRoute: typeof CategorySlugRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/budget/$slug': {
-      id: '/budget/$slug'
-      path: '/budget/$slug'
-      fullPath: '/budget/$slug'
-      preLoaderRoute: typeof BudgetSlugRouteImport
+    '/collections/': {
+      id: '/collections/'
+      path: '/collections'
+      fullPath: '/collections/'
+      preLoaderRoute: typeof CollectionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collections/$slug': {
+      id: '/collections/$slug'
+      path: '/collections/$slug'
+      fullPath: '/collections/$slug'
+      preLoaderRoute: typeof CollectionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -358,21 +178,22 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BuildHamperRoute: BuildHamperRoute,
-  BulkOrdersRoute: BulkOrdersRoute,
-  ClientsRoute: ClientsRoute,
   ContactRoute: ContactRoute,
   CorporateRoute: CorporateRoute,
-  FestiveRoute: FestiveRoute,
-  JournalRoute: JournalRoute,
-  OccasionsRoute: OccasionsRoute,
-  PackagingRoute: PackagingRoute,
-  PersonalizedRoute: PersonalizedRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  BudgetSlugRoute: BudgetSlugRoute,
-  CategorySlugRoute: CategorySlugRoute,
-  OccasionSlugRoute: OccasionSlugRoute,
+  CollectionsSlugRoute: CollectionsSlugRoute,
+  CollectionsIndexRoute: CollectionsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

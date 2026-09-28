@@ -1,84 +1,54 @@
 import { useState } from "react";
-import { Reveal } from "./Reveal";
 
-const faqs = [
-  {
-    q: "How long does customization take?",
-    a: "Most personalized orders are ready within 3–5 days. Wedding and corporate volumes are planned 2–4 weeks in advance. Rush requests are welcome — just tell us the date.",
-  },
-  {
-    q: "Do you ship across India?",
-    a: "Yes. We ship pan-India with tracked courier, packed inside protective outer boxes so the wrapping arrives exactly as it left our studio.",
-  },
-  {
-    q: "Can I include my own items in a hamper?",
-    a: "Absolutely. Send us a note, a bottle, a book, a family recipe — we wrap it into the hamper as if it were always meant to be there.",
-  },
-  {
-    q: "Do you offer corporate discounts?",
-    a: "Volume pricing begins at 25 units. We&apos;ll build a proposal within 48 hours of a quick brief — nothing generic, nothing bloated.",
-  },
-  {
-    q: "What&apos;s your returns policy?",
-    a: "Personalized gifts are non-returnable, but if anything arrives less than perfect, we replace it. No forms, no fine print.",
-  },
-];
+import { Reveal } from "./Reveal";
+import { FAQS } from "@/data/faqs";
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <section className="bg-warm-white py-28 md:py-36">
+    <section className="bg-ivory py-20 md:py-28">
       <div className="mx-auto max-w-[860px] px-5 md:px-8">
         <Reveal>
-          <div className="text-center mb-14 md:mb-16">
-            <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-              — Questions
-            </span>
-            <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold text-charcoal leading-[1.15]">
-              Everything you might<br />
-              <span className="italic text-bronze">want to know.</span>
-            </h2>
-          </div>
+          <h2 className="mb-10 font-display text-3xl leading-[1.04] tracking-[-0.035em] text-charcoal md:mb-14 md:text-5xl">
+            A few things worth knowing.
+          </h2>
         </Reveal>
 
-        <div className="space-y-3">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
+        <div className="divide-y divide-beige border-y border-beige">
+          {FAQS.map((faq, index) => {
+            const isOpen = open === index;
+            const panelId = `faq-panel-${index}`;
             return (
-              <Reveal key={i} delay={i * 60}>
-                <div className="rounded-2xl border border-beige bg-cream overflow-hidden transition-shadow duration-300 hover:shadow-soft">
+              <div key={faq.q}>
+                <h3>
                   <button
-                    onClick={() => setOpen(isOpen ? null : i)}
+                    type="button"
+                    onClick={() => setOpen(isOpen ? null : index)}
                     aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-6 text-left px-6 md:px-8 py-6"
+                    aria-controls={panelId}
+                    className="flex min-h-[56px] w-full items-center justify-between gap-6 py-5 text-left md:py-6"
                   >
-                    <span className="font-display text-lg md:text-xl font-semibold text-charcoal">
-                      {f.q}
-                    </span>
+                    <span className="font-display text-lg text-charcoal md:text-xl">{faq.q}</span>
                     <span
-                      className={`shrink-0 text-bronze text-2xl transition-transform duration-500 ${
-                        isOpen ? "rotate-45" : ""
-                      }`}
-                      aria-hidden
+                      className={`shrink-0 text-2xl text-bronze transition-transform duration-200 ${isOpen ? "rotate-45" : ""}`}
+                      aria-hidden="true"
                     >
                       +
                     </span>
                   </button>
-                  <div
-                    className="grid transition-all duration-500 ease-out"
-                    style={{
-                      gridTemplateRows: isOpen ? "1fr" : "0fr",
-                    }}
-                  >
-                    <div className="overflow-hidden">
-                      <p
-                        className="px-6 md:px-8 pb-7 text-warm-gray leading-[1.7]"
-                        dangerouslySetInnerHTML={{ __html: f.a }}
-                      />
-                    </div>
+                </h3>
+                <div
+                  id={panelId}
+                  hidden={!isOpen}
+                  className="grid transition-[grid-template-rows] duration-200 ease-out"
+                  style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                >
+                  <div className="overflow-hidden">
+                    <p className="max-w-3xl pb-6 leading-[1.8] text-warm-gray">{faq.a}</p>
                   </div>
                 </div>
-              </Reveal>
+              </div>
             );
           })}
         </div>

@@ -1,15 +1,22 @@
+import { STUDIO } from "@/data/catalog";
+
+/**
+ * Desktop-only: on mobile the sticky bar at the bottom already carries the
+ * enquiry action, and stacking both put two competing buttons in the same corner.
+ * Styled as a flat brass-ruled panel rather than a round floating bubble so it
+ * reads as part of the page furniture.
+ */
 export function WhatsAppFab() {
   return (
     <a
-      href="https://wa.me/919999999999?text=Hi%20Sneha%20Wrapzz%2C%20I%27d%20like%20to%20plan%20a%20gift."
+      href={STUDIO.whatsappHref}
       target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-sage text-ivory shadow-lift transition-transform duration-300 hover:scale-110"
+      rel="noreferrer"
+      aria-label={`Message ${STUDIO.name} on WhatsApp`}
+      className="fixed bottom-6 right-6 z-40 hidden min-h-[48px] items-center gap-3 border border-aged-brass bg-bottle-dark px-5 py-3 text-sm font-semibold text-ivory shadow-lift transition-colors hover:bg-bottle md:inline-flex"
     >
-      <svg viewBox="0 0 32 32" width="26" height="26" fill="currentColor" aria-hidden>
-        <path d="M19.11 17.24c-.28-.14-1.65-.81-1.9-.9-.26-.09-.44-.14-.63.14-.19.28-.72.9-.88 1.08-.16.19-.32.21-.6.07-.28-.14-1.18-.43-2.25-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.63-1.52-.87-2.08-.23-.55-.46-.47-.63-.48h-.54c-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.35 0 1.39 1 2.73 1.14 2.92.14.19 1.97 3.01 4.78 4.22.67.29 1.19.46 1.6.59.67.21 1.27.18 1.75.11.53-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33zM16.01 3.2C9.02 3.2 3.32 8.9 3.32 15.9c0 2.24.59 4.42 1.71 6.35L3.2 28.8l6.7-1.75c1.86 1.01 3.95 1.55 6.11 1.55 6.99 0 12.69-5.7 12.69-12.7 0-6.99-5.7-12.7-12.69-12.7zm0 23.15c-1.94 0-3.83-.52-5.48-1.5l-.39-.23-3.98 1.04 1.06-3.88-.26-.4a10.4 10.4 0 0 1-1.62-5.58c0-5.75 4.71-10.45 10.51-10.45 5.79 0 10.51 4.7 10.51 10.45 0 5.75-4.72 10.55-10.36 10.55z" />
-      </svg>
+      <span aria-hidden="true" className="h-2 w-2 rounded-full bg-aged-brass" />
+      Enquire on WhatsApp
     </a>
   );
 }

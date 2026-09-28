@@ -1,47 +1,62 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-interface RevealProps {
+/**
+ * A single, quiet reveal: 14px rise and a fade, once, on first intersection.
+ *
+ * This replaces a version that rendered its children unchanged, so the site
+ * claimed motion it did not have. Anyone who has asked for reduced motion gets
+ * the final state immediately, and so does anyone without IntersectionObserver.
+ */
+export function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
   children: ReactNode;
-  delay?: number;
   className?: string;
-  as?: keyof React.JSX.IntrinsicElements;
-}
-
-export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }: RevealProps) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const node = ref.current;
+    if (!node) return;
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced || typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
+
     const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setVisible(true);
-            io.disconnect();
-          }
-        });
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          io.disconnect();
+        }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.05 },
     );
-    io.observe(el);
+
+    io.observe(node);
     return () => io.disconnect();
   }, []);
 
-  const Comp = Tag as any;
   return (
-    <Comp
-      ref={ref as any}
+    <div
+      ref={ref}
       className={className}
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 900ms cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 900ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
-        willChange: "opacity, transform",
+        opacity: shown ? 1 : 0,
+        transform: shown ? "none" : "translateY(14px)",
+        transition: `opacity 620ms cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 620ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
       }}
     >
       {children}
-    </Comp>
+    </div>
   );
 }

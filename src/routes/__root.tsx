@@ -38,11 +38,12 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    const err = error instanceof Error ? error : new Error(String(error));
+    reportLovableError(err, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -81,30 +82,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sneha Wrapzz — Luxury Gift Wrapping & Bespoke Hampers" },
+      { title: "Sneha\x27s Wrapzz — Silver Decor, Festive Gifting & Hampers" },
       {
         name: "description",
         content:
-          "Handcrafted gift wrapping, bespoke hampers, and personalized gifting for weddings, festivals, and corporate moments.",
+          "A gifting studio in Secunderabad, Hyderabad: silver decor and devotional pieces, diyas and candles, serveware, hampers and bulk corporate gifting.",
       },
-      { name: "author", content: "Sneha Wrapzz" },
-      { property: "og:site_name", content: "Sneha Wrapzz" },
-      { property: "og:title", content: "Sneha Wrapzz — Luxury Gift Wrapping & Bespoke Hampers" },
+      { name: "author", content: "Wrapzz Gifting India" },
+      { property: "og:site_name", content: "Sneha\x27s Wrapzz" },
+      {
+        property: "og:title",
+        content: "Sneha\x27s Wrapzz — Silver Decor, Festive Gifting & Hampers",
+      },
       {
         property: "og:description",
         content:
-          "Handcrafted wrapping, personalized hampers, unforgettable unboxing moments.",
+          "Silver decor and devotional pieces, festive diyas and candles, serveware, hampers and bulk gifting. Secunderabad, Hyderabad.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Sneha Wrapzz — Luxury Gift Wrapping & Bespoke Hampers" },
+      {
+        name: "twitter:title",
+        content: "Sneha\x27s Wrapzz — Silver Decor, Festive Gifting & Hampers",
+      },
       {
         name: "twitter:description",
         content:
-          "Handcrafted wrapping, personalized hampers, unforgettable unboxing moments.",
+          "Silver decor and devotional pieces, festive diyas and candles, serveware, hampers and bulk gifting. Secunderabad, Hyderabad.",
       },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a27988fc-6f76-4c04-b072-03bc6fd91109/id-preview-da76a139--6e0975c0-3100-4cb6-b498-8a8b6cefcf29.lovable.app-1783443373010.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a27988fc-6f76-4c04-b072-03bc6fd91109/id-preview-da76a139--6e0975c0-3100-4cb6-b498-8a8b6cefcf29.lovable.app-1783443373010.png" },
+      {
+        property: "og:image",
+        content: "https://snehawrapzz.lovable.app/media/wall-art/wall-art-01.webp",
+      },
+      {
+        name: "twitter:image",
+        content: "https://snehawrapzz.lovable.app/media/wall-art/wall-art-01.webp",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -117,7 +131,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Marcellus&family=DM+Sans:wght@400;500;600;700&display=swap",
       },
     ],
     scripts: [
@@ -129,49 +143,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             {
               "@type": "Organization",
               "@id": "https://snehawrapzz.lovable.app/#organization",
-              name: "Sneha Wrapzz",
+              name: "Wrapzz Gifting India",
+              alternateName: "Sneha\x27s Wrapzz",
               url: "https://snehawrapzz.lovable.app/",
-              logo: "https://snehawrapzz.lovable.app/favicon.ico",
-              email: "hello@snehawrapzz.com",
-              telephone: "+91-99999-99999",
-              sameAs: ["https://instagram.com/snehawrapzz"],
+              telephone: "+91 9966307889",
             },
             {
               "@type": "LocalBusiness",
               "@id": "https://snehawrapzz.lovable.app/#studio",
-              name: "Sneha Wrapzz Gifting Studio",
+              name: "Wrapzz Gifting India",
               url: "https://snehawrapzz.lovable.app/",
-              image:
-                "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a27988fc-6f76-4c04-b072-03bc6fd91109/id-preview-da76a139--6e0975c0-3100-4cb6-b498-8a8b6cefcf29.lovable.app-1783443373010.png",
-              email: "hello@snehawrapzz.com",
-              telephone: "+91-99999-99999",
-              priceRange: "₹₹",
+              telephone: "+91 9966307889",
+              image: "https://snehawrapzz.lovable.app/media/wall-art/wall-art-01.webp",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Mumbai",
+                streetAddress: "Plot no 49, Krishna, Sindhi Colony",
+                addressLocality: "Secunderabad",
+                addressRegion: "Hyderabad",
+                postalCode: "500003",
                 addressCountry: "IN",
               },
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                  ],
-                  opens: "11:00",
-                  closes: "19:00",
-                },
-              ],
               parentOrganization: { "@id": "https://snehawrapzz.lovable.app/#organization" },
             },
             {
               "@type": "WebSite",
               "@id": "https://snehawrapzz.lovable.app/#website",
-              name: "Sneha Wrapzz",
+              name: "Sneha\x27s Wrapzz",
               url: "https://snehawrapzz.lovable.app/",
               publisher: { "@id": "https://snehawrapzz.lovable.app/#organization" },
             },
@@ -205,9 +202,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-ivory text-charcoal flex flex-col pb-20 md:pb-0">
+      <div className="flex min-h-screen flex-col bg-ivory pb-[76px] text-charcoal md:pb-0">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:inline-flex focus:min-h-[44px] focus:items-center focus:bg-bottle-dark focus:px-4 focus:text-sm focus:font-semibold focus:text-ivory"
+        >
+          Skip to content
+        </a>
         <Header />
-        <main className="flex-1">
+        <main id="main" className="flex-1">
           <Outlet />
         </main>
         <Footer />

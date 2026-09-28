@@ -1,36 +1,24 @@
 import { Reveal } from "./Reveal";
 
 export function SectionHeader({
-  eyebrow,
   title,
-  italic,
+  continuation,
   description,
   align = "left",
 }: {
-  eyebrow?: string;
   title: string;
-  italic?: string;
+  continuation?: string;
   description?: string;
   align?: "left" | "center";
 }) {
   return (
-    <Reveal className={align === "center" ? "text-center max-w-2xl mx-auto" : "max-w-2xl"}>
-      {eyebrow && (
-        <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-          — {eyebrow}
-        </span>
-      )}
-      <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-charcoal leading-[1.12]">
+    <Reveal className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+      <h2 className="font-display text-3xl font-medium leading-[1.05] tracking-[-0.035em] text-charcoal md:text-5xl">
         {title}
-        {italic && (
-          <>
-            <br />
-            <span className="italic text-bronze">{italic}</span>
-          </>
-        )}
+        {continuation && <span className="block font-normal text-aged-brass">{continuation}</span>}
       </h2>
       {description && (
-        <p className="mt-5 text-warm-gray text-[15px] md:text-lg leading-[1.7]">{description}</p>
+        <p className="mt-5 text-[15px] leading-[1.75] text-warm-gray md:text-lg">{description}</p>
       )}
     </Reveal>
   );
