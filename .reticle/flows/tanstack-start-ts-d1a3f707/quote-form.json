@@ -1,0 +1,169 @@
+{
+  "version": 2,
+  "name": "quote-form",
+  "intent": "The Get-a-quote form blocks an empty send with inline errors and focus on the first field, then turns a completed form into a WhatsApp enquiry exactly once.",
+  "intentId": "flow:quote-form",
+  "projectId": "tanstack-start-ts-d1a3f707",
+  "startPath": "/contact",
+  "createdAt": 1790677594940,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "quote-send",
+        "source": {
+          "file": "src/components/site/LeadForm.tsx",
+          "line": 168,
+          "column": 8
+        }
+      },
+      "source": {
+        "file": "src/components/site/LeadForm.tsx",
+        "line": 168
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "enquiry:blocked",
+            "dataMatches": {
+              "form": "quote"
+            },
+            "count": 1
+          },
+          {
+            "kind": "text",
+            "contains": "Please share your name",
+            "visible": true
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "textbox",
+              "name": "Name (required)"
+            },
+            "state": "focused"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Name (required)"
+      },
+      "source": {
+        "file": "src/components/site/LeadForm.tsx",
+        "line": 204
+      },
+      "action": "fill",
+      "args": {
+        "value": "Asha Rao"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "Asha Rao",
+          "role": "textbox",
+          "name": "Name (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Phone / WhatsApp (required)"
+      },
+      "source": {
+        "file": "src/components/site/LeadForm.tsx",
+        "line": 204
+      },
+      "action": "fill",
+      "args": {
+        "value": "98480 22338"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "98480 22338",
+          "role": "textbox",
+          "name": "Phone / WhatsApp (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Occasion or product (required)"
+      },
+      "source": {
+        "file": "src/components/site/LeadForm.tsx",
+        "line": 204
+      },
+      "action": "fill",
+      "args": {
+        "value": "Diwali hampers"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "Diwali hampers",
+          "role": "textbox",
+          "name": "Occasion or product (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "quote-send",
+        "source": {
+          "file": "src/components/site/LeadForm.tsx",
+          "line": 168,
+          "column": 8
+        }
+      },
+      "source": {
+        "file": "src/components/site/LeadForm.tsx",
+        "line": 168
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "enquiry:ready",
+            "dataMatches": {
+              "form": "quote"
+            },
+            "count": 1
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "heading",
+              "name": "Your enquiry is ready on WhatsApp."
+            },
+            "state": "visible"
+          }
+        ]
+      }
+    }
+  ],
+  "labels": [
+    "form-quote"
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "version": 2,
+  "name": "home-contact-form",
+  "intent": "The home page enquiry form blocks an empty send with an inline error and focus on the name field, then opens a pre-filled WhatsApp message once contact details are given.",
+  "intentId": "flow:home-contact-form",
+  "projectId": "tanstack-start-ts-d1a3f707",
+  "startPath": "/",
+  "createdAt": 1790677612382,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "home-contact-send",
+        "source": {
+          "file": "src/components/site/Contact.tsx",
+          "line": 116,
+          "column": 14
+        }
+      },
+      "source": {
+        "file": "src/components/site/Contact.tsx",
+        "line": 116
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "enquiry:blocked",
+            "dataMatches": {
+              "form": "home-contact"
+            },
+            "count": 1
+          },
+          {
+            "kind": "text",
+            "contains": "Please share your name",
+            "visible": true
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "textbox",
+              "name": "Name (required)"
+            },
+            "state": "focused"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Name (required)"
+      },
+      "source": {
+        "file": "src/components/site/Contact.tsx",
+        "line": 178
+      },
+      "action": "fill",
+      "args": {
+        "value": "Asha Rao"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "Asha Rao",
+          "role": "textbox",
+          "name": "Name (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Phone or email (required)"
+      },
+      "source": {
+        "file": "src/components/site/Contact.tsx",
+        "line": 178
+      },
+      "action": "fill",
+      "args": {
+        "value": "asha@example.com"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "asha@example.com",
+          "role": "textbox",
+          "name": "Phone or email (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "home-contact-send",
+        "source": {
+          "file": "src/components/site/Contact.tsx",
+          "line": 116,
+          "column": 14
+        }
+      },
+      "source": {
+        "file": "src/components/site/Contact.tsx",
+        "line": 116
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "enquiry:ready",
+            "dataMatches": {
+              "form": "home-contact"
+            },
+            "count": 1
+          },
+          {
+            "kind": "text",
+            "contains": "Your message is ready in WhatsApp.",
+            "visible": true
+          }
+        ]
+      }
+    }
+  ],
+  "labels": [
+    "form-home"
+  ]
+}

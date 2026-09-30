@@ -1,0 +1,24 @@
+{
+  "intents": {
+    "flow:home-product-rail": {
+      "amended": [
+        {
+          "at": 1790674641715,
+          "statement": "The signature-pieces carousel on the home page advances with its Next control and then allows going back."
+        }
+      ],
+      "declaredAt": 1790674641715,
+      "id": "flow:home-product-rail",
+      "state": "declared",
+      "statement": "The home page signature-pieces carousel enables its arrows once it is ready, advances with Next, and then allows going back.",
+      "status": "proposed",
+      "subject": "home-product-rail",
+      "surface": {
+        "flow": "home-product-rail"
+      },
+      "updatedAt": 1790682193687
+    }
+  },
+  "subject": "home-product-rail",
+  "version": 1
+}

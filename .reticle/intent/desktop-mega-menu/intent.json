@@ -1,0 +1,28 @@
+{
+  "intents": {
+    "flow:desktop-mega-menu": {
+      "amended": [
+        {
+          "at": 1790674633068,
+          "statement": "A desktop visitor opens the Collections mega menu from the header and reaches a collection page (Silver Artifacts) from its photo tile."
+        },
+        {
+          "at": 1790674633068,
+          "statement": "A desktop visitor opens the Collections mega menu and reaches the Silver Artifacts collection page from its photo tile, with a clean console."
+        }
+      ],
+      "declaredAt": 1790674633068,
+      "id": "flow:desktop-mega-menu",
+      "state": "declared",
+      "statement": "A desktop visitor opens the Collections mega menu and reaches the Silver Artifacts collection page from its photo tile, and the menu closes behind them.",
+      "status": "proposed",
+      "subject": "desktop-mega-menu",
+      "surface": {
+        "flow": "desktop-mega-menu"
+      },
+      "updatedAt": 1790676677589
+    }
+  },
+  "subject": "desktop-mega-menu",
+  "version": 1
+}

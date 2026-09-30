@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "negated predicate unexpectedly held",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e421",
+        "source": {
+          "file": "src/components/site/FAQ.tsx",
+          "line": 18,
+          "column": 14
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1790674641464-click-c45ce626",
+  "createdAt": 1790674641464,
+  "seen": 1,
+  "lastSeenAt": 1790674641464
+}

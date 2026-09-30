@@ -1,0 +1,59 @@
+{
+  "entries": [
+    {
+      "id": "flow:desktop-mega-menu",
+      "statement": "A desktop visitor opens the Collections mega menu and reaches the Silve…",
+      "status": "proposed",
+      "subject": "desktop-mega-menu"
+    },
+    {
+      "id": "flow:hamper-wizard-brief",
+      "statement": "A visitor answers the hamper builder, is stopped with an inline error w…",
+      "status": "proved",
+      "subject": "hamper-wizard-brief"
+    },
+    {
+      "id": "flow:home-contact-form",
+      "statement": "The home page enquiry form blocks an empty send with an inline error an…",
+      "status": "proved",
+      "subject": "home-contact-form"
+    },
+    {
+      "id": "flow:home-faq-accordion",
+      "statement": "Home page FAQ answers open on click and only one answer is open at a ti…",
+      "status": "proposed",
+      "subject": "home-faq-accordion"
+    },
+    {
+      "id": "flow:home-product-rail",
+      "statement": "The home page signature-pieces carousel enables its arrows once it is r…",
+      "status": "proposed",
+      "subject": "home-product-rail"
+    },
+    {
+      "id": "flow:lookbook-lightbox",
+      "statement": "A lookbook photo opens a lightbox that pages by button and arrow key, a…",
+      "status": "proved",
+      "subject": "lookbook-lightbox"
+    },
+    {
+      "id": "flow:mobile-menu",
+      "statement": "On a phone, the menu button opens the navigation dialog with focus insi…",
+      "status": "proposed",
+      "subject": "mobile-menu"
+    },
+    {
+      "id": "flow:quote-form",
+      "statement": "The Get-a-quote form blocks an empty send with inline errors and focus…",
+      "status": "proved",
+      "subject": "quote-form"
+    },
+    {
+      "id": "flow:quote-form-validation",
+      "statement": "Sending the Get-a-quote form empty is blocked with inline errors for th…",
+      "status": "proposed",
+      "subject": "quote-form-validation"
+    }
+  ],
+  "version": 1
+}

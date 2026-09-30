@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "element exists but not in state 'visible'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e1808",
+        "source": {
+          "file": "src/components/site/Header.tsx",
+          "line": 70,
+          "column": 6
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1790676676512-click-d1153ba2",
+  "createdAt": 1790676676519,
+  "seen": 1,
+  "lastSeenAt": 1790676676519
+}

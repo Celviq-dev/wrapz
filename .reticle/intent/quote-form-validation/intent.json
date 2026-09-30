@@ -1,0 +1,18 @@
+{
+  "intents": {
+    "flow:quote-form-validation": {
+      "declaredAt": 1790674671191,
+      "id": "flow:quote-form-validation",
+      "state": "declared",
+      "statement": "Sending the Get-a-quote form empty is blocked with inline errors for the required fields and focus moves to the first one.",
+      "status": "proposed",
+      "subject": "quote-form-validation",
+      "surface": {
+        "flow": "quote-form-validation"
+      },
+      "updatedAt": 1790674671199
+    }
+  },
+  "subject": "quote-form-validation",
+  "version": 1
+}

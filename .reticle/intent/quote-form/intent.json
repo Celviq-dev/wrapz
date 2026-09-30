@@ -1,0 +1,26 @@
+{
+  "intents": {
+    "flow:quote-form": {
+      "binding": {
+        "flow": "quote-form"
+      },
+      "declaredAt": 1790676527019,
+      "id": "flow:quote-form",
+      "provenBy": {
+        "at": 1790682274363,
+        "grade": "asserted",
+        "verdictId": "flow_replay:quote-form:1790682274363"
+      },
+      "state": "proved",
+      "statement": "The Get-a-quote form blocks an empty send with inline errors and focus on the first field, then turns a completed form into a WhatsApp enquiry exactly once.",
+      "status": "proved",
+      "subject": "quote-form",
+      "surface": {
+        "flow": "quote-form"
+      },
+      "updatedAt": 1790682274414
+    }
+  },
+  "subject": "quote-form",
+  "version": 1
+}

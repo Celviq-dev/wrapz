@@ -1,0 +1,18 @@
+{
+  "intents": {
+    "flow:home-faq-accordion": {
+      "declaredAt": 1790674641517,
+      "id": "flow:home-faq-accordion",
+      "state": "declared",
+      "statement": "Home page FAQ answers open on click and only one answer is open at a time, so the list stays scannable.",
+      "status": "proposed",
+      "subject": "home-faq-accordion",
+      "surface": {
+        "flow": "home-faq-accordion"
+      },
+      "updatedAt": 1790674641525
+    }
+  },
+  "subject": "home-faq-accordion",
+  "version": 1
+}

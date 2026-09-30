@@ -1,0 +1,32 @@
+{
+  "intents": {
+    "flow:lookbook-lightbox": {
+      "amended": [
+        {
+          "at": 1790674669826,
+          "statement": "A lookbook photo opens in a lightbox that pages forward by button and by arrow key, and Escape closes it."
+        }
+      ],
+      "binding": {
+        "flow": "lookbook-lightbox"
+      },
+      "declaredAt": 1790674669826,
+      "id": "flow:lookbook-lightbox",
+      "provenBy": {
+        "at": 1790682254560,
+        "grade": "asserted",
+        "verdictId": "flow_replay:lookbook-lightbox:1790682254560"
+      },
+      "state": "proved",
+      "statement": "A lookbook photo opens a lightbox that pages by button and arrow key, and Escape closes it on the photo the visitor reached.",
+      "status": "proved",
+      "subject": "lookbook-lightbox",
+      "surface": {
+        "flow": "lookbook-lightbox"
+      },
+      "updatedAt": 1790682254699
+    }
+  },
+  "subject": "lookbook-lightbox",
+  "version": 1
+}

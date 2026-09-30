@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "name": "home-product-rail",
+  "intent": "The home page signature-pieces carousel enables its arrows once it is ready, advances with Next, and then allows going back.",
+  "intentId": "flow:home-product-rail",
+  "projectId": "tanstack-start-ts-d1a3f707",
+  "startPath": "/",
+  "createdAt": 1790682193618,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Next pieces"
+      },
+      "source": {
+        "file": "src/components/site/ProductRail.tsx",
+        "line": 51
+      },
+      "action": "scrollIntoView",
+      "args": {},
+      "expect": {
+        "kind": "element",
+        "query": {
+          "role": "button",
+          "name": "Next pieces"
+        },
+        "state": "enabled"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Next pieces"
+      },
+      "source": {
+        "file": "src/components/site/ProductRail.tsx",
+        "line": 51
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "element",
+            "query": {
+              "role": "button",
+              "name": "Previous pieces"
+            },
+            "state": "enabled"
+          },
+          {
+            "kind": "console",
+            "level": "error",
+            "absent": true
+          }
+        ]
+      }
+    }
+  ]
+}

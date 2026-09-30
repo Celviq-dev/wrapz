@@ -1,0 +1,125 @@
+{
+  "version": 2,
+  "name": "lookbook-lightbox",
+  "intent": "A lookbook photo opens a lightbox that pages by button and arrow key, and Escape closes it on the photo the visitor reached.",
+  "intentId": "flow:lookbook-lightbox",
+  "projectId": "tanstack-start-ts-d1a3f707",
+  "startPath": "/lookbook",
+  "createdAt": 1790676522428,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Ganesh Idol in Acrylic Case. Open larger"
+      },
+      "source": {
+        "file": "src/components/site/Lookbook.tsx",
+        "line": 68
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "lightbox:opened",
+            "dataMatches": {
+              "index": 0
+            },
+            "count": 1
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "dialog",
+              "name": "Ganesh Idol in Acrylic Case"
+            },
+            "state": "visible"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Next photo"
+      },
+      "source": {
+        "file": "src/components/site/Lookbook.tsx",
+        "line": 136
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "text",
+        "contains": "2 of 294",
+        "visible": true
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Close"
+      },
+      "source": {
+        "file": "src/components/site/Lookbook.tsx",
+        "line": 111
+      },
+      "action": "press",
+      "args": {
+        "text": "ArrowRight"
+      },
+      "expect": {
+        "kind": "text",
+        "contains": "3 of 294",
+        "visible": true
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Close"
+      },
+      "source": {
+        "file": "src/components/site/Lookbook.tsx",
+        "line": 111
+      },
+      "action": "press",
+      "args": {
+        "text": "Escape"
+      },
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "lightbox:closed",
+            "dataMatches": {
+              "index": 2
+            },
+            "count": 1
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "dialog"
+            },
+            "absent": true
+          }
+        ]
+      }
+    }
+  ],
+  "labels": [
+    "browse"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "intents": {
+    "flow:hamper-wizard-brief": {
+      "amended": [
+        {
+          "at": 1790674665988,
+          "statement": "A visitor answers hamper-builder questions, jumps to the summary, and sending without a name is blocked with an inline error and focus on the name field."
+        }
+      ],
+      "binding": {
+        "flow": "hamper-wizard-brief"
+      },
+      "declaredAt": 1790674665988,
+      "id": "flow:hamper-wizard-brief",
+      "provenBy": {
+        "at": 1790682264774,
+        "grade": "asserted",
+        "verdictId": "flow_replay:hamper-wizard-brief:1790682264774"
+      },
+      "state": "proved",
+      "statement": "A visitor answers the hamper builder, is stopped with an inline error when sending without contact details, then sends a WhatsApp brief that carries their occasion and recipient.",
+      "status": "proved",
+      "subject": "hamper-wizard-brief",
+      "surface": {
+        "flow": "hamper-wizard-brief"
+      },
+      "updatedAt": 1790682264830
+    }
+  },
+  "subject": "hamper-wizard-brief",
+  "version": 1
+}

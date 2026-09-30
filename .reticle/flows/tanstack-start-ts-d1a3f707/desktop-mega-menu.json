@@ -1,0 +1,89 @@
+{
+  "version": 2,
+  "name": "desktop-mega-menu",
+  "intent": "A desktop visitor opens the Collections mega menu and reaches the Silver Artifacts collection page from its photo tile, and the menu closes behind them.",
+  "intentId": "flow:desktop-mega-menu",
+  "projectId": "tanstack-start-ts-d1a3f707",
+  "startPath": "/",
+  "createdAt": 1790676824074,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Collections"
+      },
+      "source": {
+        "file": "src/components/site/Header.tsx",
+        "line": 70
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "element",
+            "query": {
+              "role": "button",
+              "name": "Collections"
+            },
+            "state": "expanded"
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "link",
+              "name": "Silver Artifacts 97 designs"
+            },
+            "state": "visible"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "link",
+        "name": "Silver Artifacts 97 designs"
+      },
+      "source": {
+        "file": "src/components/site/Header.tsx",
+        "line": 83
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "route",
+            "pathname": "/silver"
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "heading",
+              "name": "Silver artifacts, made to be kept."
+            },
+            "state": "visible"
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "link",
+              "name": "Silver Artifacts 97 designs"
+            },
+            "state": "visible",
+            "absent": true
+          }
+        ]
+      }
+    }
+  ],
+  "labels": [
+    "browse"
+  ]
+}

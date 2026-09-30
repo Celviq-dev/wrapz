@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "current route (no route change in the window) '/', expected '/silver'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "e981",
+        "source": {
+          "file": "src/components/site/Header.tsx",
+          "line": 83,
+          "column": 20
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1790676507028-click-a8febd3f",
+  "createdAt": 1790676507031,
+  "seen": 1,
+  "lastSeenAt": 1790676507031
+}

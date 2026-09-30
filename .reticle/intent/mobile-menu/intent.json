@@ -1,0 +1,18 @@
+{
+  "intents": {
+    "flow:mobile-menu": {
+      "declaredAt": 1790676686849,
+      "id": "flow:mobile-menu",
+      "state": "declared",
+      "statement": "On a phone, the menu button opens the navigation dialog with focus inside it, and choosing a page navigates there and closes the dialog.",
+      "status": "proposed",
+      "subject": "mobile-menu",
+      "surface": {
+        "flow": "mobile-menu"
+      },
+      "updatedAt": 1790676687021
+    }
+  },
+  "subject": "mobile-menu",
+  "version": 1
+}

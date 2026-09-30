@@ -1,0 +1,227 @@
+{
+  "version": 2,
+  "name": "hamper-wizard-brief",
+  "intent": "A visitor answers the hamper builder, is stopped with an inline error when sending without contact details, then sends a WhatsApp brief that carries their occasion and recipient.",
+  "intentId": "flow:hamper-wizard-brief",
+  "projectId": "tanstack-start-ts-d1a3f707",
+  "startPath": "/build-hamper",
+  "createdAt": 1790676514478,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "radio",
+        "name": "Diwali"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 112
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "element",
+        "query": {
+          "role": "radio",
+          "name": "Diwali"
+        },
+        "state": "checked"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Continue"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 168
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "element",
+        "query": {
+          "role": "heading",
+          "name": "Who is it for?"
+        },
+        "state": "visible"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "radio",
+        "name": "Clients"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 112
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "element",
+        "query": {
+          "role": "radio",
+          "name": "Clients"
+        },
+        "state": "checked"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Go to step 8: Summary"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 94
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "element",
+        "query": {
+          "role": "heading",
+          "name": "Your hamper brief"
+        },
+        "state": "visible"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Send brief on WhatsApp"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 172
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "enquiry:blocked",
+            "dataMatches": {
+              "form": "hamper"
+            },
+            "count": 1
+          },
+          {
+            "kind": "text",
+            "contains": "Please share your name",
+            "visible": true
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "textbox",
+              "name": "Your name (required)"
+            },
+            "state": "focused"
+          }
+        ]
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Your name (required)"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 234
+      },
+      "action": "fill",
+      "args": {
+        "value": "Asha Rao"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "Asha Rao",
+          "role": "textbox",
+          "name": "Your name (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "textbox",
+        "name": "Phone or WhatsApp (required)"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 234
+      },
+      "action": "fill",
+      "args": {
+        "value": "98480 22338"
+      },
+      "expect": {
+        "kind": "element",
+        "query": {
+          "value": "98480 22338",
+          "role": "textbox",
+          "name": "Phone or WhatsApp (required)"
+        }
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "button",
+        "name": "Send brief on WhatsApp"
+      },
+      "source": {
+        "file": "src/components/site/HamperWizard.tsx",
+        "line": 172
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "enquiry:ready",
+            "dataMatches": {
+              "form": "hamper",
+              "occasion": "Diwali",
+              "recipient": "Clients"
+            },
+            "count": 1
+          },
+          {
+            "kind": "element",
+            "query": {
+              "role": "heading",
+              "name": "Your hamper brief is ready on WhatsApp."
+            },
+            "state": "visible"
+          }
+        ]
+      }
+    }
+  ],
+  "labels": [
+    "form-hamper"
+  ]
+}
