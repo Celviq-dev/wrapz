@@ -1,87 +1,44 @@
-import { useState } from "react";
-import { Reveal } from "./Reveal";
+import { Plus } from "lucide-react";
+import { SITE, whatsappLink } from "@/data/site";
 
-const faqs = [
-  {
-    q: "How long does customization take?",
-    a: "Most personalized orders are ready within 3–5 days. Wedding and corporate volumes are planned 2–4 weeks in advance. Rush requests are welcome — just tell us the date.",
-  },
-  {
-    q: "Do you ship across India?",
-    a: "Yes. We ship pan-India with tracked courier, packed inside protective outer boxes so the wrapping arrives exactly as it left our studio.",
-  },
-  {
-    q: "Can I include my own items in a hamper?",
-    a: "Absolutely. Send us a note, a bottle, a book, a family recipe — we wrap it into the hamper as if it were always meant to be there.",
-  },
-  {
-    q: "Do you offer corporate discounts?",
-    a: "Volume pricing begins at 25 units. We&apos;ll build a proposal within 48 hours of a quick brief — nothing generic, nothing bloated.",
-  },
-  {
-    q: "What&apos;s your returns policy?",
-    a: "Personalized gifts are non-returnable, but if anything arrives less than perfect, we replace it. No forms, no fine print.",
-  },
-];
-
-export function FAQ() {
-  const [open, setOpen] = useState<number | null>(0);
+/**
+ * Native <details> disclosure: keyboard and screen-reader behavior come from the browser, and every
+ * answer stays in the HTML (the same Q&A is published as FAQPage JSON-LD). `name` keeps one open at a time.
+ */
+export function FAQ({ items, title = "Questions, answered." }: { items: Array<{ q: string; a: string }>; title?: string }) {
   return (
-    <section className="bg-warm-white py-28 md:py-36">
-      <div className="mx-auto max-w-[860px] px-5 md:px-8">
-        <Reveal>
-          <div className="text-center mb-14 md:mb-16">
-            <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-              — Questions
-            </span>
-            <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold text-charcoal leading-[1.15]">
-              Everything you might<br />
-              <span className="italic text-bronze">want to know.</span>
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="space-y-3">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <Reveal key={i} delay={i * 60}>
-                <div className="rounded-2xl border border-beige bg-cream overflow-hidden transition-shadow duration-300 hover:shadow-soft">
-                  <button
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-6 text-left px-6 md:px-8 py-6"
-                  >
-                    <span className="font-display text-lg md:text-xl font-semibold text-charcoal">
-                      {f.q}
-                    </span>
-                    <span
-                      className={`shrink-0 text-bronze text-2xl transition-transform duration-500 ${
-                        isOpen ? "rotate-45" : ""
-                      }`}
-                      aria-hidden
-                    >
-                      +
-                    </span>
-                  </button>
-                  <div
-                    className="grid transition-all duration-500 ease-out"
-                    style={{
-                      gridTemplateRows: isOpen ? "1fr" : "0fr",
-                    }}
-                  >
-                    <div className="overflow-hidden">
-                      <p
-                        className="px-6 md:px-8 pb-7 text-warm-gray leading-[1.7]"
-                        dangerouslySetInnerHTML={{ __html: f.a }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
+    <section aria-labelledby="faq-title" className="bg-porcelain py-20 md:py-28">
+      <div className="mx-auto max-w-3xl px-5 md:px-8">
+        <h2 id="faq-title" className="text-center font-display text-[34px] font-medium leading-[1.1] text-ink md:text-5xl">
+          {title}
+        </h2>
+        <div className="mt-10 divide-y divide-line border-y border-line md:mt-12">
+          {items.map((f, i) => (
+            <details key={f.q} name="faq" open={i === 0} className="group">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+                <h3 className="font-display text-lg font-medium leading-snug text-ink md:text-xl">{f.q}</h3>
+                <span
+                  aria-hidden
+                  className="inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-line text-ink transition-transform duration-200 group-open:rotate-45"
+                >
+                  <Plus className="size-4" strokeWidth={1.75} />
+                </span>
+              </summary>
+              <p className="pb-6 pr-12 text-base leading-relaxed text-ink-soft">{f.a}</p>
+            </details>
+          ))}
         </div>
+        <p className="mt-8 text-center text-sm text-ink-soft">
+          Still deciding?{" "}
+          <a
+            href={whatsappLink(`Hi ${SITE.name}, I have a question about gifting.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-ink underline decoration-line underline-offset-4 hover:decoration-ink"
+          >
+            Ask us on WhatsApp
+          </a>
+        </p>
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
+import type { Photo } from "@/data/catalog";
+import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "./Breadcrumbs";
-import { Reveal } from "./Reveal";
+import { CatalogImage } from "./CatalogImage";
 
 export function PageHero({
   eyebrow,
@@ -9,7 +11,7 @@ export function PageHero({
   description,
   breadcrumbs,
   actions,
-  image,
+  photo,
   tone = "ivory",
 }: {
   eyebrow?: string;
@@ -18,43 +20,28 @@ export function PageHero({
   description?: string;
   breadcrumbs?: Array<{ label: string; to?: string }>;
   actions?: ReactNode;
-  image?: string;
+  photo?: Photo;
   tone?: "ivory" | "cream" | "warm";
 }) {
-  const bg =
-    tone === "cream" ? "bg-cream" : tone === "warm" ? "bg-warm-white" : "bg-ivory";
   return (
-    <section className={`${bg} paper-grain pt-[120px] pb-16 md:pt-[150px] md:pb-24`}>
-      <div className="mx-auto max-w-[1280px] px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
-        <Reveal className="lg:col-span-7">
-          {breadcrumbs && <div className="mb-6"><Breadcrumbs items={breadcrumbs} /></div>}
-          {eyebrow && (
-            <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-              — {eyebrow}
-            </span>
-          )}
-          <h1 className="mt-4 font-display text-4xl md:text-6xl font-semibold text-charcoal leading-[1.08]">
+    <section className={cn("pb-14 pt-28 md:pb-20 md:pt-36", tone === "warm" ? "bg-paper" : "bg-porcelain")}>
+      <div className="page-x grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className={photo ? "lg:col-span-7" : "lg:col-span-9"}>
+          {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+          {eyebrow && <p className="eyebrow mt-8">{eyebrow}</p>}
+          <h1 className={cn("font-display text-[40px] font-medium leading-[1.06] text-ink md:text-6xl", eyebrow ? "mt-3" : "mt-6")}>
             {title}
-            {italic && (
-              <>
-                <br />
-                <span className="italic text-bronze">{italic}</span>
-              </>
-            )}
+            {italic && <em className="font-normal text-gold-deep"> {italic}</em>}
           </h1>
-          {description && (
-            <p className="mt-6 text-warm-gray text-[16px] md:text-lg leading-[1.7] max-w-xl">
-              {description}
-            </p>
-          )}
-          {actions && <div className="mt-8 flex flex-wrap items-center gap-4">{actions}</div>}
-        </Reveal>
-        {image && (
-          <Reveal delay={120} className="lg:col-span-5">
-            <div className="overflow-hidden rounded-3xl shadow-lift">
-              <img src={image} alt="" className="w-full aspect-[4/5] object-cover" />
+          {description && <p className="mt-6 max-w-[58ch] text-base leading-relaxed text-ink-soft md:text-lg">{description}</p>}
+          {actions && <div className="mt-8 flex flex-wrap items-center gap-3">{actions}</div>}
+        </div>
+        {photo && (
+          <div className="lg:col-span-5">
+            <div className="overflow-hidden rounded-2xl bg-paper">
+              <CatalogImage photo={photo} priority sizes="(min-width: 1024px) 40vw, 100vw" className="aspect-[4/3] w-full object-cover lg:aspect-[5/4]" />
             </div>
-          </Reveal>
+          </div>
         )}
       </div>
     </section>

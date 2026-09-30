@@ -1,32 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import g4 from "@/assets/gallery-4.jpg";
-import p from "@/assets/collection-personal.jpg";
-import w from "@/assets/collection-wedding.jpg";
+import { CatalogImage } from "@/components/site/CatalogImage";
+import { absoluteUrl, coverPhoto } from "@/data/catalog";
 
-const POSTS = [
-  { slug: "art-of-wrapping", title: "The quiet art of wrapping", read: "5 min read", tag: "Craft", img: g1, excerpt: "Why the way a gift arrives matters as much as what's inside." },
-  { slug: "diwali-planning", title: "A calm way to plan Diwali gifting", read: "6 min read", tag: "Festive", img: g2, excerpt: "Timelines, budgeting, and the case for briefing your gifting studio in August." },
-  { slug: "onboarding-kits", title: "First-day kits that don't feel corporate", read: "4 min read", tag: "Corporate", img: g3, excerpt: "Small design choices that turn a joining kit into a welcome." },
-  { slug: "sustainable-choices", title: "Sustainable gifting, actually", read: "7 min read", tag: "Sustainable", img: g4, excerpt: "Beyond the buzzwords — the material choices that matter." },
-  { slug: "wedding-language", title: "Building a gifting language for weddings", read: "8 min read", tag: "Weddings", img: w, excerpt: "How to keep gifting consistent from mehendi to reception." },
-  { slug: "personalization-101", title: "Personalization, without cliché", read: "5 min read", tag: "Personal", img: p, excerpt: "Monograms, colour, texture — how to make a gift feel truly for someone." },
-];
+// Short guides that lead into real, curated collections (no placeholder articles).
+const GUIDES = [
+  { to: "/occasion/$slug", params: { slug: "diwali" }, title: "A calm way to plan Diwali gifting", tag: "Festive", cover: "lotus-wax-diyas", excerpt: "Diyas, pooja sets and dry-fruit trays for family, teams and clients, and why briefing us 6–8 weeks ahead matters." },
+  { to: "/category/$slug", params: { slug: "wedding-return-gifts" }, title: "Return gifts every guest will keep", tag: "Weddings", cover: "floral-jute-potli-return-gifts", excerpt: "Potlis, diya sets and tealight favors packed identically from mehendi to reception." },
+  { to: "/occasion/$slug", params: { slug: "housewarming" }, title: "What to gift for a griha pravesh", tag: "Housewarming", cover: "shubh-labh-8-piece-presentation-set", excerpt: "Ganesh idols, Shubh-Labh plaques and a kalash of coins: auspicious pieces for a new address." },
+  { to: "/category/$slug", params: { slug: "client-gifting" }, title: "Client gifts that don't feel corporate", tag: "Corporate", cover: "elephant-family-trio", excerpt: "Silver-finish décor and velvet-boxed sets that quietly deepen relationships." },
+  { to: "/category/$slug", params: { slug: "gifts-for-couples" }, title: "Gifts made in pairs", tag: "Anniversaries", cover: "kissing-swans", excerpt: "Swans, Radha-Krishna and Shubh-Labh: why pairs make the most meaningful couple gifts." },
+  { to: "/category/$slug", params: { slug: "sustainable-gifts" }, title: "Sustainable gifting, actually", tag: "Sustainable", cover: "sustainable-soiree-gift-hamper", excerpt: "Jute, cane and wood, and our Sustainable Soirée hamper for low-impact gifting." },
+] as const;
 
 export const Route = createFileRoute("/journal")({
   head: () => ({
     meta: [
-      { title: "The Gifting Journal — Sneha Wrapzz" },
-      { name: "description", content: "Notes on considered gifting, packaging, festive planning, and corporate gifting rituals — from the Sneha Wrapzz studio." },
-      { property: "og:title", content: "The Gifting Journal — Sneha Wrapzz" },
-      { property: "og:description", content: "Field notes on considered gifting and packaging craft." },
-      { property: "og:url", content: "https://snehawrapzz.lovable.app/journal" },
+      { title: "Gifting Guides — The Sneha’s Wrapzz Journal" },
+      { name: "description", content: "Gifting guides from the Sneha’s Wrapzz studio: Diwali planning, wedding return gifts, griha pravesh gifts, client gifting and sustainable hampers." },
+      { property: "og:title", content: "Gifting Guides — The Sneha’s Wrapzz Journal" },
+      { property: "og:description", content: "Guides to considered gifting, from Diwali to weddings and corporate sends." },
+      { property: "og:url", content: absoluteUrl("/journal") },
     ],
-    links: [{ rel: "canonical", href: "https://snehawrapzz.lovable.app/journal" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/journal") }],
   }),
   component: JournalPage,
 });
@@ -37,36 +34,36 @@ function JournalPage() {
       <PageHero
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "Journal" }]}
         eyebrow="The Journal"
-        title="Field notes on"
-        italic="the craft of gifting."
-        description="Short essays on considered gifting, festive planning, packaging craft, and the rituals of receiving."
+        title="Gifting guides,"
+        italic="from our studio."
+        description="Short guides to the occasions we gift for most, each leading to the pieces we recommend."
       />
 
       <section className="pb-24 md:pb-32 bg-ivory">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-          <SectionHeader eyebrow="Recent" title="From the" italic="studio." />
+        <div className="page-x">
+          <SectionHeader title="Where to" italic="start." />
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {POSTS.map((post) => (
-              <Link
-                key={post.slug}
-                to="/contact"
-                className="group card-lift block overflow-hidden rounded-3xl border border-beige bg-cream shadow-soft"
-              >
-                <div className="aspect-[5/4] overflow-hidden">
-                  <img src={post.img} alt={post.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <div className="p-6 md:p-7">
-                  <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.18em] text-bronze">
-                    <span>{post.tag}</span>
-                    <span className="text-beige">·</span>
-                    <span className="text-warm-gray">{post.read}</span>
+            {GUIDES.map((g) => {
+              const photo = coverPhoto(g.cover);
+              return (
+                <Link
+                  key={g.title}
+                  to={g.to}
+                  params={g.params}
+                  className="group card-lift flex flex-col overflow-hidden rounded-3xl border border-beige bg-cream shadow-soft"
+                >
+                  <div className="aspect-[5/4] overflow-hidden bg-warm-white">
+                    {photo && <CatalogImage photo={photo} alt="" sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
                   </div>
-                  <h3 className="mt-3 font-display text-xl font-semibold text-charcoal leading-snug">{post.title}</h3>
-                  <p className="mt-2 text-sm text-warm-gray leading-relaxed line-clamp-3">{post.excerpt}</p>
-                  <span className="mt-4 inline-flex link-underline text-xs font-medium text-olive">Read →</span>
-                </div>
-              </Link>
-            ))}
+                  <div className="flex flex-1 flex-col p-6 md:p-7">
+                    <div className="text-sm font-medium text-gold-deep">{g.tag} · Guide</div>
+                    <h3 className="mt-3 font-display text-xl font-semibold text-charcoal leading-snug">{g.title}</h3>
+                    <p className="mt-2 text-sm text-warm-gray leading-relaxed line-clamp-3">{g.excerpt}</p>
+                    <span className="mt-auto pt-4 inline-flex link-underline text-xs font-medium text-olive w-fit">See the pieces →</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

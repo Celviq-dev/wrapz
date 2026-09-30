@@ -1,19 +1,15 @@
 import { Link } from "@tanstack/react-router";
+import { SITE, whatsappLink } from "@/data/site";
+import { WhatsAppIcon } from "./ProductCard";
 
 export function MobileStickyCTA() {
   return (
-    <div className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t border-beige/70 bg-cream/95 backdrop-blur-md px-4 py-3 flex gap-2">
-      <a
-        href="https://wa.me/919999999999?text=Hi%20Sneha%20Wrapzz"
-        className="flex-1 rounded-lg border border-beige bg-ivory text-charcoal py-3 text-sm font-semibold text-center"
-      >
-        WhatsApp
+    <div className="on-dark fixed inset-x-0 bottom-0 z-20 flex gap-2 border-t border-porcelain/10 bg-plum-950 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 md:hidden">
+      <a href={whatsappLink(`Hi ${SITE.name}, I'd like to plan a gift.`)} target="_blank" rel="noopener noreferrer" className="btn-glass flex-1">
+        <WhatsAppIcon /> WhatsApp
       </a>
-      <Link
-        to="/contact"
-        className="flex-1 rounded-lg bg-terracotta text-ivory py-3 text-sm font-semibold text-center shadow-soft"
-      >
-        Request a Quote
+      <Link to="/contact" className="btn-gold flex-1">
+        Get a quote
       </Link>
     </div>
   );

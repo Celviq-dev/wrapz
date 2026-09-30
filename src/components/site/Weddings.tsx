@@ -1,77 +1,53 @@
-import wedding from "@/assets/collection-wedding.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import { Reveal } from "./Reveal";
+﻿import { Link } from "@tanstack/react-router";
+import { Check } from "lucide-react";
+import { pick } from "@/data/catalog";
+import { CatalogImage } from "./CatalogImage";
+
+const [tray, frame] = pick(["velvet-tray-hamper-with-photo-frame", "arch-top-wedding-portrait-frame"]);
+
+const POINTS = [
+  "Return gifts and potlis in any quantity, packed identically",
+  "Tray hampers for the bridal party and both families",
+  "Wedding frames, swan pairs and Radha-Krishna pieces",
+  "Cards and tags printed with your names",
+];
 
 export function Weddings() {
   return (
-    <section id="weddings" className="bg-ivory py-28 md:py-36">
-      <div className="mx-auto max-w-[1280px] px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        {/* offset image stack */}
-        <Reveal className="lg:col-span-6 relative">
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl shadow-lift">
-              <img
-                src={wedding}
-                alt="Bridal hamper with white roses and champagne ribbon"
-                loading="lazy"
-                width={1000}
-                height={1200}
-                className="w-full aspect-[4/5] object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-10 -right-4 md:-right-10 w-40 md:w-56 overflow-hidden rounded-2xl border-4 border-ivory shadow-lift hidden sm:block">
-              <img
-                src={gallery4}
-                alt="Woman receiving a wrapped gift"
-                loading="lazy"
-                width={900}
-                height={1200}
-                className="w-full aspect-square object-cover"
-              />
-            </div>
+    <section aria-labelledby="weddings-title" className="bg-porcelain py-20 md:py-28">
+      <div className="page-x grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
+        <div className="relative pb-10 pr-10 sm:pb-14 sm:pr-16 lg:col-span-6">
+          <div className="overflow-hidden rounded-2xl bg-paper">
+            <CatalogImage photo={tray.photos[0]} sizes="(min-width: 1024px) 44vw, 90vw" className="aspect-[4/5] size-full object-cover" />
           </div>
-        </Reveal>
-
-        <Reveal className="lg:col-span-6" delay={150}>
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-            — Weddings
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold text-charcoal leading-[1.15]">
-            Gifts for life&apos;s most<br />
-            <span className="italic text-bronze">beautiful mornings.</span>
+          <div className="absolute bottom-0 right-0 w-[42%] overflow-hidden rounded-2xl border-[6px] border-porcelain bg-paper shadow-lift">
+            <CatalogImage photo={frame.photos[0]} sizes="(min-width: 1024px) 20vw, 40vw" className="aspect-[3/4] size-full object-cover" />
+          </div>
+        </div>
+        <div className="lg:col-span-5 lg:col-start-8">
+          <h2 id="weddings-title" className="font-display text-[34px] font-medium leading-[1.1] text-ink md:text-5xl">
+            Wedding gifting, from mehendi to reception.
           </h2>
-          <p className="mt-6 text-warm-gray text-lg leading-[1.7] max-w-xl">
-            Welcome boxes for guests arriving from three time zones. Bridal
-            party hampers, filled with things she&apos;ll actually keep.
-            Trousseau wrapping that turns the exchange itself into ceremony.
+          <p className="mt-5 text-base leading-relaxed text-ink-soft md:text-lg">
+            Favors for every guest, hampers for the bridal party and silver-finish keepsakes the couple will keep on display.
           </p>
-
-          <ul className="mt-8 space-y-3 text-charcoal">
-            {[
-              "Bridal & bridesmaid hampers",
-              "Welcome boxes for out-of-town guests",
-              "Trousseau & registry wrapping",
-              "Return favors, softly curated",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-2 h-1.5 w-1.5 rounded-full bg-champagne" />
-                <span className="text-[15px]">{item}</span>
+          <ul className="mt-8 space-y-3.5">
+            {POINTS.map((p) => (
+              <li key={p} className="flex gap-3 text-[15px] leading-snug text-ink">
+                <Check aria-hidden strokeWidth={1.75} className="mt-0.5 size-[18px] shrink-0 text-gold-deep" />
+                {p}
               </li>
             ))}
           </ul>
-
-          <div className="mt-10 flex gap-4">
-            <a
-              href="#contact"
-              className="inline-flex items-center rounded-lg bg-sage px-6 py-3 text-sm font-semibold text-ivory shadow-soft hover:scale-[1.03] hover:shadow-lift transition-all duration-300"
-            >
-              Plan wedding gifting
-            </a>
-            <a href="#gallery" className="link-underline self-center text-sm font-medium text-charcoal">
-              See real weddings
-            </a>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link to="/occasion/$slug" params={{ slug: "weddings" }} className="btn-primary">
+              Explore wedding gifts
+            </Link>
+            <Link to="/category/$slug" params={{ slug: "wedding-return-gifts" }} className="btn-outline">
+              Return gifts
+            </Link>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

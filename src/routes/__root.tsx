@@ -1,3 +1,6 @@
+// @reticle-ignore
+// Reticle's dev-only source stamps land on different lines in the server and client transforms of
+// this root route, which React reports as a hydration mismatch on every page. Only this file opts out.
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -15,22 +18,28 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 import { MobileStickyCTA } from "@/components/site/MobileStickyCTA";
+import { SITE } from "@/data/site";
+
+const OG_IMAGE = `${SITE.url}/og-image.jpg`;
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[80dvh] items-center justify-center bg-porcelain px-5 pt-24">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-semibold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-medium text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <img src="/brand/seal.webp" width={215} height={217} alt="" className="mx-auto size-20" />
+        <p className="mt-6 text-sm font-semibold text-gold-deep">Page not found</p>
+        <h1 className="mt-3 font-display text-4xl font-medium text-ink md:text-5xl">
+          This page has been <em className="font-normal text-gold-deep">unwrapped.</em>
+        </h1>
+        <p className="mt-4 text-ink-soft">
+          The page you're looking for doesn't exist or has moved. Our collections are a click away.
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Link to="/" className="btn-primary">
+            Back to home
+          </Link>
+          <Link to="/lookbook" className="btn-outline">
+            Browse the lookbook
           </Link>
         </div>
       </div>
@@ -46,7 +55,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-dvh items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-medium tracking-tight text-foreground">
           This page didn't load
@@ -60,13 +69,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            className="btn-primary"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="btn-outline"
           >
             Go home
           </a>
@@ -81,44 +90,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sneha Wrapzz — Luxury Gift Wrapping & Bespoke Hampers" },
+      { title: "Sneha’s Wrapzz — Silver Gifts, Hampers & Festive Gifting, Hyderabad" },
       {
         name: "description",
         content:
-          "Handcrafted gift wrapping, bespoke hampers, and personalized gifting for weddings, festivals, and corporate moments.",
+          "Silver-finish idols and décor, festive hampers, diyas, pooja sets and corporate gifting, curated and hand-wrapped in Hyderabad and delivered pan-India.",
       },
-      { name: "author", content: "Sneha Wrapzz" },
-      { property: "og:site_name", content: "Sneha Wrapzz" },
-      { property: "og:title", content: "Sneha Wrapzz — Luxury Gift Wrapping & Bespoke Hampers" },
+      { name: "author", content: "Sneha’s Wrapzz" },
+      { name: "theme-color", content: "#211119" },
+      { property: "og:site_name", content: "Sneha’s Wrapzz" },
+      { property: "og:locale", content: "en_IN" },
+      { property: "og:title", content: "Sneha’s Wrapzz — Silver Gifts, Hampers & Festive Gifting" },
       {
         property: "og:description",
-        content:
-          "Handcrafted wrapping, personalized hampers, unforgettable unboxing moments.",
+        content: "Silver artifacts, hampers, diyas and pooja sets, hand-wrapped in Hyderabad and delivered pan-India.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Sneha Wrapzz — Luxury Gift Wrapping & Bespoke Hampers" },
+      { name: "twitter:title", content: "Sneha’s Wrapzz — Silver Gifts, Hampers & Festive Gifting" },
       {
         name: "twitter:description",
-        content:
-          "Handcrafted wrapping, personalized hampers, unforgettable unboxing moments.",
+        content: "Silver artifacts, hampers, diyas and pooja sets, hand-wrapped in Hyderabad and delivered pan-India.",
       },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a27988fc-6f76-4c04-b072-03bc6fd91109/id-preview-da76a139--6e0975c0-3100-4cb6-b498-8a8b6cefcf29.lovable.app-1783443373010.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a27988fc-6f76-4c04-b072-03bc6fd91109/id-preview-da76a139--6e0975c0-3100-4cb6-b498-8a8b6cefcf29.lovable.app-1783443373010.png" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap",
-      },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
     scripts: [
       {
@@ -128,52 +130,40 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@graph": [
             {
               "@type": "Organization",
-              "@id": "https://snehawrapzz.lovable.app/#organization",
-              name: "Sneha Wrapzz",
-              url: "https://snehawrapzz.lovable.app/",
-              logo: "https://snehawrapzz.lovable.app/favicon.ico",
-              email: "hello@snehawrapzz.com",
-              telephone: "+91-99999-99999",
-              sameAs: ["https://instagram.com/snehawrapzz"],
+              "@id": `${SITE.url}/#organization`,
+              name: SITE.legalName,
+              alternateName: SITE.name,
+              url: `${SITE.url}/`,
+              logo: `${SITE.url}/brand/seal.png`,
+              telephone: SITE.phoneHref.replace("tel:", ""),
+              sameAs: [SITE.instagram.url],
             },
             {
               "@type": "LocalBusiness",
-              "@id": "https://snehawrapzz.lovable.app/#studio",
-              name: "Sneha Wrapzz Gifting Studio",
-              url: "https://snehawrapzz.lovable.app/",
-              image:
-                "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a27988fc-6f76-4c04-b072-03bc6fd91109/id-preview-da76a139--6e0975c0-3100-4cb6-b498-8a8b6cefcf29.lovable.app-1783443373010.png",
-              email: "hello@snehawrapzz.com",
-              telephone: "+91-99999-99999",
+              "@id": `${SITE.url}/#studio`,
+              name: SITE.legalName,
+              url: `${SITE.url}/`,
+              image: OG_IMAGE,
+              logo: `${SITE.url}/brand/seal.png`,
+              telephone: SITE.phoneHref.replace("tel:", ""),
               priceRange: "₹₹",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Mumbai",
-                addressCountry: "IN",
+                streetAddress: SITE.address.street,
+                addressLocality: SITE.address.locality,
+                addressRegion: SITE.address.region,
+                postalCode: SITE.address.postalCode,
+                addressCountry: SITE.address.country,
               },
-              openingHoursSpecification: [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                  ],
-                  opens: "11:00",
-                  closes: "19:00",
-                },
-              ],
-              parentOrganization: { "@id": "https://snehawrapzz.lovable.app/#organization" },
+              areaServed: "IN",
+              parentOrganization: { "@id": `${SITE.url}/#organization` },
             },
             {
               "@type": "WebSite",
-              "@id": "https://snehawrapzz.lovable.app/#website",
-              name: "Sneha Wrapzz",
-              url: "https://snehawrapzz.lovable.app/",
-              publisher: { "@id": "https://snehawrapzz.lovable.app/#organization" },
+              "@id": `${SITE.url}/#website`,
+              name: SITE.name,
+              url: `${SITE.url}/`,
+              publisher: { "@id": `${SITE.url}/#organization` },
             },
           ],
         }),
@@ -188,7 +178,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <HeadContent />
       </head>
@@ -200,14 +190,48 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+declare const __RETICLE_TOKEN__: string;
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    // Dev-only overlay; `?noreticle` keeps it out of design-review screenshots.
+    const params = new URLSearchParams(window.location.search);
+    if (import.meta.env.DEV && params.has("reviewfrom")) {
+      // Dev-only: headless review captures of long pages start at a given section by hiding
+      // the sections above it (headless capture can't rasterise scrolled content).
+      let el = document.getElementById(params.get("reviewfrom") ?? "");
+      while (el && el.parentElement?.id !== "main") el = el.parentElement;
+      for (let s = el?.previousElementSibling; s; s = s.previousElementSibling) (s as HTMLElement).style.display = "none";
+    }
+    if (import.meta.env.DEV && params.has("noreveal")) {
+      document.querySelectorAll<HTMLImageElement>("img[loading=lazy]").forEach((img) => (img.loading = "eager"));
+      // Tall capture windows would otherwise stretch <main> to the full window height.
+      document.getElementById("main")?.parentElement?.style.setProperty("min-height", "0px");
+    }
+    if (import.meta.env.DEV && !params.has("noreticle")) {
+      const token = typeof __RETICLE_TOKEN__ !== "undefined" ? __RETICLE_TOKEN__ : "";
+      const connect = () =>
+        void import("@reticlehq/react").then(({ reticle, install }) => {
+          install();
+          reticle.connect({
+            projectId: "tanstack-start-ts-d1a3f707",
+            ...(token.length > 0 ? { token } : {}),
+          });
+        });
+      // A cold dev-server load pulls a few hundred modules; connecting only once the page has loaded
+      // keeps a verification run from sending its first command into a page that is still loading.
+      if (document.readyState === "complete") connect();
+      else window.addEventListener("load", connect, { once: true });
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-ivory text-charcoal flex flex-col pb-20 md:pb-0">
+      <div className="flex min-h-dvh flex-col bg-porcelain pb-20 text-ink md:pb-0">
         <Header />
-        <main className="flex-1">
+        <main id="main" className="flex-1">
           <Outlet />
         </main>
         <Footer />

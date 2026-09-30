@@ -1,25 +1,25 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
-import { ProductCard } from "@/components/site/ProductCard";
+import { ProductGrid } from "@/components/site/ProductGrid";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { LeadForm } from "@/components/site/LeadForm";
-import { getBudget, PRODUCTS, BUDGETS } from "@/data/catalog";
+import { BUDGETS, absoluteUrl, getBudget, productsForBudget, type Product } from "@/data/catalog";
 
 export const Route = createFileRoute("/budget/$slug")({
   loader: ({ params }) => {
     const b = getBudget(params.slug);
     if (!b) throw notFound();
-    return { b, products: PRODUCTS.slice(0, 8) };
+    return { b, products: productsForBudget(params.slug) };
   },
   head: ({ loaderData, params }) => {
-    if (!loaderData) return { meta: [{ title: "Budget — Sneha Wrapzz" }, { name: "robots", content: "noindex" }] };
+    if (!loaderData) return { meta: [{ title: "Budget — Sneha’s Wrapzz" }, { name: "robots", content: "noindex" }] };
     const { b } = loaderData;
-    const url = `https://snehawrapzz.lovable.app/budget/${params.slug}`;
+    const url = absoluteUrl(`/budget/${params.slug}`);
     return {
       meta: [
-        { title: `${b.label} — Gifting by Budget | Sneha Wrapzz` },
-        { name: "description", content: b.description },
-        { property: "og:title", content: `${b.label} — Gifting by Budget` },
+        { title: `Gifts ${b.label} — Gifting by Budget | Sneha’s Wrapzz` },
+        { name: "description", content: `${b.description} Price on request, curated to your budget per gift.` },
+        { property: "og:title", content: `Gifts ${b.label} — Gifting by Budget` },
         { property: "og:description", content: b.description },
         { property: "og:url", content: url },
       ],
@@ -43,12 +43,14 @@ function BudgetPage() {
       />
 
       <section className="py-20 md:py-24 bg-warm-white">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-          <SectionHeader eyebrow="Picks in this range" title="Curated" italic="options." />
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
-            {(products as import("@/data/catalog").Product[]).map((p) => (
-              <ProductCard key={p.slug} product={p} />
-            ))}
+        <div className="page-x">
+          <SectionHeader
+            title="Curated"
+            italic="options."
+            description="Indicative only: final pricing depends on size, quantity and personalization. Tell us your budget per gift and we'll confirm options that fit."
+          />
+          <div className="mt-12">
+            <ProductGrid products={products as Product[]} filterable />
           </div>
           <div className="mt-12 flex flex-wrap gap-2 justify-center">
             {others.map((o) => (
@@ -62,7 +64,7 @@ function BudgetPage() {
 
       <section className="py-20 md:py-28 bg-ivory">
         <div className="mx-auto max-w-3xl px-5 md:px-8">
-          <LeadForm title="Not sure which to pick?" subtitle="Share a couple of details — we'll curate three options in your range." variant="sage" />
+          <LeadForm title="Not sure which to pick?" subtitle="Share a couple of details and we'll curate three options in your range." purpose={`Gifts ${b.label}`} />
         </div>
       </section>
     </>

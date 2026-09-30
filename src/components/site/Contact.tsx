@@ -1,129 +1,203 @@
-import { useState } from "react";
-import { Reveal } from "./Reveal";
+import { useId, useState } from "react";
+import { ADDRESS_LINE, SITE, whatsappLink } from "@/data/site";
+import { cn } from "@/lib/utils";
+import { emit, Sig } from "@/lib/reticle-signals";
+import { WhatsAppIcon } from "./ProductCard";
+
+const MAPS = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS_LINE)}`;
+
+type Errors = { name?: string; reach?: string };
+
+function validate(name: string, reach: string): Errors {
+  return {
+    name: name.length < 2 ? "Please share your name" : undefined,
+    reach: reach.includes("@") || reach.replace(/\D/g, "").length >= 6 ? undefined : "Add a phone number or email so we can reply",
+  };
+}
 
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const uid = useId();
+  const [sentTo, setSentTo] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Errors>({});
 
   return (
-    <section id="contact" className="bg-ivory py-28 md:py-36">
-      <div className="mx-auto max-w-[1180px] px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
-        <Reveal className="lg:col-span-5">
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-            — Get in Touch
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold text-charcoal leading-[1.15]">
-            Let&apos;s wrap<br />
-            <span className="italic text-bronze">your moment.</span>
+    <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden bg-paper py-20 md:py-28">
+      <img
+        src="/brand/leaves.webp"
+        width={475}
+        height={660}
+        alt=""
+        loading="lazy"
+        className="pointer-events-none absolute -right-16 -top-10 hidden w-64 opacity-60 lg:block"
+      />
+      <div className="page-x relative grid gap-14 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-5">
+          <h2 id="contact-title" className="font-display text-[34px] font-medium leading-[1.1] text-ink md:text-5xl">
+            Tell us what you are planning.
           </h2>
-          <p className="mt-6 text-warm-gray leading-[1.7] max-w-md">
-            Tell us the story — the occasion, the person, the feeling you want
-            them to have when the ribbon comes undone. We&apos;ll take it from there.
+          <p className="mt-5 max-w-[42ch] text-base leading-relaxed text-ink-soft md:text-lg">
+            The occasion, the person and the date. We reply within one working day.
           </p>
+          <dl className="mt-10 space-y-6">
+            <div>
+              <dt className="text-sm text-ink-soft">Call or WhatsApp</dt>
+              <dd className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+                <a href={SITE.phoneHref} className="font-display text-xl text-ink tabular-nums hover:text-gold-deep">
+                  {SITE.phoneDisplay}
+                </a>
+                <a
+                  href={whatsappLink(`Hi ${SITE.name}, I'd like to plan a gift.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tap-area text-sm font-semibold text-sage underline decoration-sage/30 underline-offset-4 hover:decoration-sage"
+                >
+                  Message on WhatsApp
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-sm text-ink-soft">Studio</dt>
+              <dd className="mt-1">
+                <address className="not-italic text-[15px] leading-relaxed text-ink">{ADDRESS_LINE}</address>
+                <a href={MAPS} target="_blank" rel="noopener noreferrer" className="tap-area mt-1 inline-block text-sm font-semibold text-ink underline decoration-line underline-offset-4 hover:decoration-ink">
+                  Get directions
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-sm text-ink-soft">Instagram</dt>
+              <dd className="mt-1">
+                <a href={SITE.instagram.url} target="_blank" rel="noopener noreferrer" className="tap-area text-[15px] text-ink underline decoration-line underline-offset-4 hover:decoration-ink">
+                  {SITE.instagram.handle}
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
 
-          <div className="mt-10 space-y-5 text-charcoal">
-            <div>
-              <div className="text-xs uppercase tracking-widest text-bronze mb-1">
-                Studio
-              </div>
-              <div className="text-[15px]">Bandra West, Mumbai</div>
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-widest text-bronze mb-1">
-                Write to us
-              </div>
-              <a
-                href="mailto:hello@snehaswrapzz.com"
-                className="link-underline text-[15px]"
-              >
-                hello@snehaswrapzz.com
-              </a>
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-widest text-bronze mb-1">
-                Instagram
-              </div>
-              <a
-                href="https://instagram.com"
-                className="link-underline text-[15px]"
-              >
-                @snehaswrapzz
-              </a>
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal className="lg:col-span-7" delay={120}>
+        <div className="lg:col-span-7">
           <form
+            noValidate
             onSubmit={(e) => {
               e.preventDefault();
-              setSent(true);
+              const data = new FormData(e.currentTarget);
+              const get = (k: string) => String(data.get(k) ?? "").trim();
+              const errs = validate(get("name"), get("reach"));
+              setErrors(errs);
+              const firstBad = errs.name ? "name" : errs.reach ? "reach" : null;
+              if (firstBad) {
+                document.getElementById(`${uid}-${firstBad}`)?.focus();
+                emit(Sig.ENQUIRY_BLOCKED, { form: "home-contact", fields: Object.keys(errs).filter((k) => errs[k as keyof Errors]) });
+                return;
+              }
+              const lines = [
+                ["Name", get("name")],
+                ["Contact", get("reach")],
+                ["Occasion", get("occasion")],
+                ["Needed by", get("timeline")],
+                ["Details", get("message")],
+              ].filter(([, v]) => v);
+              const url = whatsappLink(`Hi ${SITE.name}, I'd like to plan a gift.\n\n${lines.map(([k, v]) => `${k}: ${v}`).join("\n")}`);
+              window.open(url, "_blank", "noopener,noreferrer");
+              setSentTo(url);
+              emit(Sig.ENQUIRY_READY, { form: "home-contact", fields: lines.map(([k]) => k) });
             }}
-            className="rounded-3xl border border-beige bg-cream p-7 md:p-10 shadow-soft"
+            className="rounded-2xl border border-line bg-surface p-6 shadow-soft md:p-10"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <Field label="Name" id="name" placeholder="Sneha D." />
-              <Field label="Email" id="email" type="email" placeholder="you@lovely.com" />
-              <Field label="Occasion" id="occasion" placeholder="Wedding, Diwali, birthday…" />
-              <Field label="Timeline" id="timeline" placeholder="Approx. date" />
+            <div className="grid gap-5 md:grid-cols-2">
+              <Field id={`${uid}-name`} label="Name" name="name" autoComplete="name" required error={errors.name} />
+              <Field id={`${uid}-reach`} label="Phone or email" name="reach" autoComplete="tel" required hint="So we can reply" error={errors.reach} />
+              <Field id={`${uid}-occasion`} label="Occasion" name="occasion" placeholder="Wedding, Diwali, corporate" />
+              <Field id={`${uid}-timeline`} label="Needed by" name="timeline" placeholder="Approximate date" />
             </div>
-            <div className="mt-5">
-              <label htmlFor="msg" className="block text-sm font-medium text-charcoal mb-2">
-                Tell us the story
-              </label>
-              <textarea
-                id="msg"
-                rows={5}
-                placeholder="Who is it for, and what do you want them to feel?"
-                className="w-full rounded-lg border border-beige bg-ivory px-4 py-3 text-[15px] text-charcoal placeholder:text-warm-gray/70 focus:outline-none focus:border-olive focus:ring-2 focus:ring-champagne/40 transition"
-              />
-            </div>
-
-            <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
-              <p className="text-xs text-warm-gray">
-                We reply within one working day, gently.
-              </p>
-              <button
-                type="submit"
-                className="inline-flex items-center gap-2 rounded-lg bg-sage px-7 py-3 text-sm font-semibold text-ivory shadow-soft hover:scale-[1.03] hover:shadow-lift transition-all duration-300"
-              >
-                {sent ? "Sent ✓" : "Send message"}
+            <Field id={`${uid}-message`} label="What should we know?" name="message" multiline placeholder="Who it is for, how many, any budget per gift" className="mt-5" />
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+              <p className="max-w-[34ch] text-[13px] text-ink-soft">Opens WhatsApp with your message filled in. Nothing is sent until you press send there.</p>
+              <button type="submit" data-testid="home-contact-send" className="btn-whatsapp">
+                <WhatsAppIcon /> Send on WhatsApp
               </button>
             </div>
-
-            {sent && (
-              <p className="mt-5 text-sm text-olive font-medium">
-                Thank you — we&apos;ll be in touch soon.
+            {sentTo && (
+              <p role="status" className="mt-5 text-sm font-medium text-ink">
+                Your message is ready in WhatsApp. Didn’t open?{" "}
+                <a href={sentTo} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+                  Open WhatsApp
+                </a>
               </p>
             )}
           </form>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
 }
 
+const control =
+  "w-full rounded-lg border bg-porcelain px-4 text-[15px] text-ink placeholder:text-ink-soft transition-colors duration-150 hover:border-ink/30 focus-visible:border-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40";
+
 function Field({
-  label,
   id,
-  type = "text",
+  label,
+  name,
   placeholder,
+  autoComplete,
+  required,
+  hint,
+  error,
+  multiline,
+  className,
 }: {
-  label: string;
   id: string;
-  type?: string;
+  label: string;
+  name: string;
   placeholder?: string;
+  autoComplete?: string;
+  required?: boolean;
+  hint?: string;
+  error?: string;
+  multiline?: boolean;
+  className?: string;
 }) {
+  // The error replaces the hint, so only one of them is ever rendered and referenced.
+  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-charcoal mb-2">
+    <div className={className}>
+      <label htmlFor={id} className="mb-2 block text-sm font-medium text-ink">
         {label}
+        {required && (
+          <span className="text-ink-soft">
+            {" "}
+            <span aria-hidden>*</span>
+            <span className="sr-only">(required)</span>
+          </span>
+        )}
       </label>
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        className="w-full rounded-lg border border-beige bg-ivory px-4 py-3 text-[15px] text-charcoal placeholder:text-warm-gray/70 focus:outline-none focus:border-olive focus:ring-2 focus:ring-champagne/40 transition"
-      />
+      {multiline ? (
+        <textarea id={id} name={name} rows={5} placeholder={placeholder} className={`${control} border-line py-3`} />
+      ) : (
+        <input
+          id={id}
+          name={name}
+          type="text"
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          required={required}
+          aria-invalid={!!error}
+          aria-describedby={describedBy}
+          className={cn(control, "h-12", error ? "border-destructive" : "border-line")}
+        />
+      )}
+      {error ? (
+        <p id={`${id}-error`} className="mt-1.5 text-[13px] font-medium text-destructive">
+          {error}
+        </p>
+      ) : (
+        hint && (
+          <p id={`${id}-hint`} className="mt-1.5 text-[13px] text-ink-soft">
+            {hint}
+          </p>
+        )
+      )}
     </div>
   );
 }

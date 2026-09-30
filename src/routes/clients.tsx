@@ -2,93 +2,82 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { Reveal } from "@/components/site/Reveal";
-import g1 from "@/assets/gallery-1.jpg";
-import g2 from "@/assets/gallery-2.jpg";
-import g3 from "@/assets/gallery-3.jpg";
-import g4 from "@/assets/gallery-4.jpg";
+import { CatalogImage } from "@/components/site/CatalogImage";
+import { absoluteUrl, pick } from "@/data/catalog";
+import { SITE } from "@/data/site";
 
-const CLIENTS = [
-  "Serein & Co.", "Meridian Studio", "Northlight", "House of Aria", "Kaya Group",
-  "Verdant Labs", "Halcyon", "Ivory & Oak", "Fable & Co.", "Marigold House",
-  "Terra Studio", "Cadence", "Quill & Quire", "Sapient", "Auric", "Loom & Field",
-];
-
-const CASE_STUDIES = [
-  { img: g1, brand: "House of Aria", scope: "Festive Hampers · 1,200 pcs", note: "A Diwali rollout for their leadership and top clients — brass diyas, hand-stitched linen, and a monogrammed card." },
-  { img: g2, brand: "Northlight", scope: "Joining Kits · 300 pcs / quarter", note: "A warm first-day kit for new joiners — mug, notebook, tote, and a hand-signed welcome note from the founder." },
-  { img: g3, brand: "Kaya Group", scope: "Leadership Gifts · 20 pcs", note: "Sheesham wood boxes, laser-etched initials, and a curated executive stationery set for the board." },
-  { img: g4, brand: "Meridian Studio", scope: "Wedding Return Gifts · 450 pcs", note: "A consistent gifting language across mehendi, sangeet, and reception — silk pouches, gold foil, dried florals." },
+// Real orders photographed in the brand's catalogs. Client names are deliberately not shown:
+// add them here only with each client's permission.
+const ORDERS = [
+  { slug: "pichwai-peacock-hamper-boxes", scope: "Corporate · Bulk hampers", note: "Identical pichwai-print hamper boxes with jute bows, cream florals and tassels, packed for a company-wide send." },
+  { slug: "favor-boxes-with-keepsake-cards", scope: "Festive · Favor boxes", note: "Keepsake favor boxes with custom printed cards, assembled and packed as one consistent set." },
+  { slug: "floral-jute-potli-return-gifts", scope: "Wedding · Return gifts", note: "Hand-tied jute potlis with florals for every guest, finished to match the wedding palette." },
+  { slug: "sustainable-soiree-gift-hamper", scope: "Corporate · Sustainable hamper", note: "Our Sustainable Soirée hamper: natural textures, reusable containers and a handwritten tag." },
 ];
 
 export const Route = createFileRoute("/clients")({
   head: () => ({
     meta: [
-      { title: "Clients & Case Studies — Sneha Wrapzz" },
-      { name: "description", content: "Selected corporate case studies and gifting rollouts — Diwali hampers, joining kits, leadership gifts, and wedding return gifts for brands across India." },
-      { property: "og:title", content: "Clients & Case Studies — Sneha Wrapzz" },
-      { property: "og:description", content: "A selected view of the brands we've gifted for, and how we approached each rollout." },
-      { property: "og:url", content: "https://snehawrapzz.lovable.app/clients" },
+      { title: "Clients & Real Orders — Sneha’s Wrapzz" },
+      { name: "description", content: "Real bulk and corporate orders packed in the Sneha’s Wrapzz studio: branded hampers, wedding return gifts and festive favors, delivered pan-India." },
+      { property: "og:title", content: "Clients & Real Orders — Sneha’s Wrapzz" },
+      { property: "og:description", content: "Real orders from our studio: branded hampers, return gifts and festive favors." },
+      { property: "og:url", content: absoluteUrl("/clients") },
     ],
-    links: [{ rel: "canonical", href: "https://snehawrapzz.lovable.app/clients" }],
+    links: [{ rel: "canonical", href: absoluteUrl("/clients") }],
   }),
   component: ClientsPage,
 });
 
 function ClientsPage() {
+  const orders = ORDERS.map((o) => ({ ...o, product: pick([o.slug])[0] })).filter((o) => o.product);
   return (
     <>
       <PageHero
         tone="cream"
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "Clients" }]}
-        eyebrow="Trusted by 120+ brands"
-        title="Clients &"
-        italic="case studies."
-        description="A selected view of the teams we've gifted for — how we approached each rollout, and what shipped."
+        eyebrow={`${SITE.customers.toLocaleString("en-IN")}+ happy customers`}
+        title="Real orders,"
+        italic="from our studio."
+        description="Families, wedding planners and companies come back to us every season. Here is what some of those orders looked like when they left our studio."
+        photo={orders[0]?.product.photos[0]}
+        actions={
+          <a href={SITE.reviewsUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            Read {SITE.reviews}+ Google reviews
+          </a>
+        }
       />
 
-      <section className="py-20 md:py-24 bg-ivory">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-          <SectionHeader eyebrow="In good company" title="Some of the" italic="brands we work with." />
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {CLIENTS.map((c) => (
-              <div key={c} className="rounded-xl border border-beige bg-cream px-5 py-6 text-center font-display text-lg text-charcoal/85">
-                {c}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="py-20 md:py-28 bg-warm-white">
-        <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-          <SectionHeader eyebrow="Case studies" title="Selected" italic="rollouts." />
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {CASE_STUDIES.map((c) => (
-              <Reveal key={c.brand} className="card-lift rounded-3xl border border-beige bg-cream overflow-hidden shadow-soft">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img src={c.img} alt={c.brand} loading="lazy" className="h-full w-full object-cover" />
-                </div>
-                <div className="p-7">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-bronze">{c.scope}</div>
-                  <h3 className="mt-2 font-display text-2xl font-semibold text-charcoal">{c.brand}</h3>
-                  <p className="mt-3 text-warm-gray leading-relaxed">{c.note}</p>
-                </div>
+        <div className="page-x">
+          <SectionHeader title="Packed for" italic="real occasions." />
+          <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
+            {orders.map((o) => (
+              <Reveal key={o.slug}>
+                <Link to="/product/$slug" params={{ slug: o.slug }} className="group block">
+                  <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-paper">
+                    <CatalogImage photo={o.product.photos[0]} sizes="(min-width: 768px) 45vw, 100vw" className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                  </div>
+                  <div className="pt-5">
+                    <div className="text-sm font-medium text-gold-deep">{o.scope}</div>
+                    <h3 className="mt-1 font-display text-2xl font-medium text-ink">{o.product.name}</h3>
+                    <p className="mt-2 leading-relaxed text-ink-soft">{o.note}</p>
+                  </div>
+                </Link>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-28 bg-charcoal text-ivory text-center">
+      <section className="on-dark bg-plum-950 py-20 text-center text-porcelain md:py-28">
         <div className="mx-auto max-w-2xl px-5 md:px-8">
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-champagne">— Ready?</span>
-          <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold leading-[1.12]">
-            Your brand,
-            <br /><span className="italic text-champagne">warmly gifted.</span>
+          <h2 className="font-display text-[34px] font-medium leading-[1.1] md:text-5xl">
+            Your brand, <em className="font-normal text-gold-light">warmly gifted.</em>
           </h2>
-          <div className="mt-8 flex flex-wrap gap-3 justify-center">
-            <Link to="/bulk-orders" className="btn-terracotta">Request a quote →</Link>
-            <Link to="/corporate" className="btn-outline !bg-transparent !text-ivory !border-ivory/30">Explore corporate</Link>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link to="/bulk-orders" className="btn-gold">Request a bulk quote</Link>
+            <Link to="/corporate" className="btn-glass">Explore corporate</Link>
           </div>
         </div>
       </section>

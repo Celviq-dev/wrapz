@@ -10,10 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SilverRouteImport } from './routes/silver'
+import { Route as PoojaRouteImport } from './routes/pooja'
 import { Route as PersonalizedRouteImport } from './routes/personalized'
 import { Route as PackagingRouteImport } from './routes/packaging'
 import { Route as OccasionsRouteImport } from './routes/occasions'
+import { Route as LookbookRouteImport } from './routes/lookbook'
 import { Route as JournalRouteImport } from './routes/journal'
+import { Route as HomeDecorRouteImport } from './routes/home-decor'
 import { Route as FestiveRouteImport } from './routes/festive'
 import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -22,6 +26,7 @@ import { Route as BulkOrdersRouteImport } from './routes/bulk-orders'
 import { Route as BuildHamperRouteImport } from './routes/build-hamper'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as OccasionSlugRouteImport } from './routes/occasion.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as BudgetSlugRouteImport } from './routes/budget.$slug'
@@ -29,6 +34,16 @@ import { Route as BudgetSlugRouteImport } from './routes/budget.$slug'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SilverRoute = SilverRouteImport.update({
+  id: '/silver',
+  path: '/silver',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoojaRoute = PoojaRouteImport.update({
+  id: '/pooja',
+  path: '/pooja',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PersonalizedRoute = PersonalizedRouteImport.update({
@@ -46,9 +61,19 @@ const OccasionsRoute = OccasionsRouteImport.update({
   path: '/occasions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LookbookRoute = LookbookRouteImport.update({
+  id: '/lookbook',
+  path: '/lookbook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JournalRoute = JournalRouteImport.update({
   id: '/journal',
   path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeDecorRoute = HomeDecorRouteImport.update({
+  id: '/home-decor',
+  path: '/home-decor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FestiveRoute = FestiveRouteImport.update({
@@ -91,6 +116,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductSlugRoute = ProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OccasionSlugRoute = OccasionSlugRouteImport.update({
   id: '/occasion/$slug',
   path: '/occasion/$slug',
@@ -116,14 +146,19 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/corporate': typeof CorporateRoute
   '/festive': typeof FestiveRoute
+  '/home-decor': typeof HomeDecorRoute
   '/journal': typeof JournalRoute
+  '/lookbook': typeof LookbookRoute
   '/occasions': typeof OccasionsRoute
   '/packaging': typeof PackagingRoute
   '/personalized': typeof PersonalizedRoute
+  '/pooja': typeof PoojaRoute
+  '/silver': typeof SilverRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/budget/$slug': typeof BudgetSlugRoute
   '/category/$slug': typeof CategorySlugRoute
   '/occasion/$slug': typeof OccasionSlugRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -134,14 +169,19 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/corporate': typeof CorporateRoute
   '/festive': typeof FestiveRoute
+  '/home-decor': typeof HomeDecorRoute
   '/journal': typeof JournalRoute
+  '/lookbook': typeof LookbookRoute
   '/occasions': typeof OccasionsRoute
   '/packaging': typeof PackagingRoute
   '/personalized': typeof PersonalizedRoute
+  '/pooja': typeof PoojaRoute
+  '/silver': typeof SilverRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/budget/$slug': typeof BudgetSlugRoute
   '/category/$slug': typeof CategorySlugRoute
   '/occasion/$slug': typeof OccasionSlugRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -153,14 +193,19 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/corporate': typeof CorporateRoute
   '/festive': typeof FestiveRoute
+  '/home-decor': typeof HomeDecorRoute
   '/journal': typeof JournalRoute
+  '/lookbook': typeof LookbookRoute
   '/occasions': typeof OccasionsRoute
   '/packaging': typeof PackagingRoute
   '/personalized': typeof PersonalizedRoute
+  '/pooja': typeof PoojaRoute
+  '/silver': typeof SilverRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/budget/$slug': typeof BudgetSlugRoute
   '/category/$slug': typeof CategorySlugRoute
   '/occasion/$slug': typeof OccasionSlugRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -173,14 +218,19 @@ export interface FileRouteTypes {
     | '/contact'
     | '/corporate'
     | '/festive'
+    | '/home-decor'
     | '/journal'
+    | '/lookbook'
     | '/occasions'
     | '/packaging'
     | '/personalized'
+    | '/pooja'
+    | '/silver'
     | '/sitemap.xml'
     | '/budget/$slug'
     | '/category/$slug'
     | '/occasion/$slug'
+    | '/product/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -191,14 +241,19 @@ export interface FileRouteTypes {
     | '/contact'
     | '/corporate'
     | '/festive'
+    | '/home-decor'
     | '/journal'
+    | '/lookbook'
     | '/occasions'
     | '/packaging'
     | '/personalized'
+    | '/pooja'
+    | '/silver'
     | '/sitemap.xml'
     | '/budget/$slug'
     | '/category/$slug'
     | '/occasion/$slug'
+    | '/product/$slug'
   id:
     | '__root__'
     | '/'
@@ -209,14 +264,19 @@ export interface FileRouteTypes {
     | '/contact'
     | '/corporate'
     | '/festive'
+    | '/home-decor'
     | '/journal'
+    | '/lookbook'
     | '/occasions'
     | '/packaging'
     | '/personalized'
+    | '/pooja'
+    | '/silver'
     | '/sitemap.xml'
     | '/budget/$slug'
     | '/category/$slug'
     | '/occasion/$slug'
+    | '/product/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -228,14 +288,19 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CorporateRoute: typeof CorporateRoute
   FestiveRoute: typeof FestiveRoute
+  HomeDecorRoute: typeof HomeDecorRoute
   JournalRoute: typeof JournalRoute
+  LookbookRoute: typeof LookbookRoute
   OccasionsRoute: typeof OccasionsRoute
   PackagingRoute: typeof PackagingRoute
   PersonalizedRoute: typeof PersonalizedRoute
+  PoojaRoute: typeof PoojaRoute
+  SilverRoute: typeof SilverRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BudgetSlugRoute: typeof BudgetSlugRoute
   CategorySlugRoute: typeof CategorySlugRoute
   OccasionSlugRoute: typeof OccasionSlugRoute
+  ProductSlugRoute: typeof ProductSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -245,6 +310,20 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/silver': {
+      id: '/silver'
+      path: '/silver'
+      fullPath: '/silver'
+      preLoaderRoute: typeof SilverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pooja': {
+      id: '/pooja'
+      path: '/pooja'
+      fullPath: '/pooja'
+      preLoaderRoute: typeof PoojaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/personalized': {
@@ -268,11 +347,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OccasionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lookbook': {
+      id: '/lookbook'
+      path: '/lookbook'
+      fullPath: '/lookbook'
+      preLoaderRoute: typeof LookbookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/journal': {
       id: '/journal'
       path: '/journal'
       fullPath: '/journal'
       preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-decor': {
+      id: '/home-decor'
+      path: '/home-decor'
+      fullPath: '/home-decor'
+      preLoaderRoute: typeof HomeDecorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/festive': {
@@ -331,6 +424,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product/$slug': {
+      id: '/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/product/$slug'
+      preLoaderRoute: typeof ProductSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/occasion/$slug': {
       id: '/occasion/$slug'
       path: '/occasion/$slug'
@@ -364,15 +464,30 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CorporateRoute: CorporateRoute,
   FestiveRoute: FestiveRoute,
+  HomeDecorRoute: HomeDecorRoute,
   JournalRoute: JournalRoute,
+  LookbookRoute: LookbookRoute,
   OccasionsRoute: OccasionsRoute,
   PackagingRoute: PackagingRoute,
   PersonalizedRoute: PersonalizedRoute,
+  PoojaRoute: PoojaRoute,
+  SilverRoute: SilverRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   BudgetSlugRoute: BudgetSlugRoute,
   CategorySlugRoute: CategorySlugRoute,
   OccasionSlugRoute: OccasionSlugRoute,
+  ProductSlugRoute: ProductSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

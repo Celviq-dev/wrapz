@@ -1,23 +1,42 @@
-const items = [
-  { icon: "✽", text: "Handcrafted in India" },
-  { icon: "◆", text: "Fully personalized" },
-  { icon: "❖", text: "Wedding & festival edits" },
-  { icon: "✦", text: "Corporate at scale" },
+import { Gift, Star, Truck, Users } from "lucide-react";
+import { SITE } from "@/data/site";
+
+const FACTS = [
+  { icon: Users, label: `${SITE.customers.toLocaleString("en-IN")}+ happy customers` },
+  { icon: Star, label: `${SITE.reviews}+ Google reviews`, href: SITE.reviewsUrl },
+  { icon: Gift, label: "Hand-wrapped in Hyderabad" },
+  { icon: Truck, label: "Delivered pan-India" },
 ];
 
 export function TrustBar() {
   return (
-    <div className="border-y border-beige/70 bg-warm-white">
-      <div className="mx-auto max-w-[1280px] px-5 md:px-8">
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 py-6 md:justify-between md:py-5">
-          {items.map((i) => (
-            <div key={i.text} className="flex items-center gap-3 text-sm text-warm-gray">
-              <span className="text-olive text-base leading-none">{i.icon}</span>
-              <span className="font-medium">{i.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <section aria-label="Why families and companies choose us" className="border-b border-line bg-porcelain">
+      <ul className="page-x grid grid-cols-2 gap-y-1 py-4 md:grid-cols-4 md:divide-x md:divide-line md:py-5">
+        {FACTS.map(({ icon: Icon, label, href }) => {
+          const body = (
+            <>
+              <Icon aria-hidden strokeWidth={1.5} className="size-[18px] shrink-0 text-gold-deep" />
+              <span className="tabular-nums">{label}</span>
+            </>
+          );
+          return (
+            <li key={label} className="flex justify-center">
+              {href ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-2.5 px-2 text-[13px] font-medium text-ink underline decoration-line underline-offset-4 transition-colors duration-150 hover:decoration-ink md:text-sm"
+                >
+                  {body}
+                </a>
+              ) : (
+                <span className="inline-flex min-h-11 items-center gap-2.5 px-2 text-[13px] font-medium text-ink md:text-sm">{body}</span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }

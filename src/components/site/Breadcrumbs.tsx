@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
 
 export function Breadcrumbs({
   items,
@@ -6,18 +7,20 @@ export function Breadcrumbs({
   items: Array<{ label: string; to?: string }>;
 }) {
   return (
-    <nav aria-label="Breadcrumb" className="text-xs uppercase tracking-[0.18em] text-warm-gray">
-      <ol className="flex flex-wrap items-center gap-2">
+    <nav aria-label="Breadcrumb" className="text-sm text-ink-soft">
+      <ol className="flex flex-wrap items-center gap-1.5">
         {items.map((it, i) => (
-          <li key={i} className="flex items-center gap-2">
+          <li key={i} className="flex items-center gap-1.5">
             {it.to ? (
-              <Link to={it.to as string} className="hover:text-bronze transition-colors">
+              <Link to={it.to as string} className="tap-area transition-colors duration-150 hover:text-ink">
                 {it.label}
               </Link>
             ) : (
-              <span className="text-charcoal">{it.label}</span>
+              <span aria-current="page" className="text-ink">
+                {it.label}
+              </span>
             )}
-            {i < items.length - 1 && <span className="text-beige">/</span>}
+            {i < items.length - 1 && <ChevronRight aria-hidden className="size-3.5 text-ink-soft/60" strokeWidth={1.75} />}
           </li>
         ))}
       </ol>

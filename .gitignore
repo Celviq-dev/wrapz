@@ -20,6 +20,10 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Local QA run output (regenerate with review/sweep.mjs)
+review/*.txt
+review/*_out.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

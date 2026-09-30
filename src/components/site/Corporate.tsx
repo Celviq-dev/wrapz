@@ -1,78 +1,62 @@
-import corporate from "@/assets/collection-corporate.jpg";
-import { Reveal } from "./Reveal";
+import { Link } from "@tanstack/react-router";
+import { pick } from "@/data/catalog";
+import { CatalogImage } from "./CatalogImage";
 
-const tiers = [
-  {
-    tier: "Small Teams",
-    range: "10 — 50 gifts",
-    body: "Curated hampers for close-knit teams and thank-you gestures to top clients.",
-  },
-  {
-    tier: "Enterprise",
-    range: "50 — 500 gifts",
-    body: "Consistent unboxing, personalized notes, branded touches — kept quietly premium.",
-  },
-  {
-    tier: "Bespoke",
-    range: "500+",
-    body: "Custom sourcing, brand-aligned packaging, and a dedicated concierge from brief to delivery.",
-  },
+const TIERS = [
+  { range: "10–50", unit: "gifts", name: "Small teams", body: "Curated hampers for close-knit teams and thank-you gestures to key clients." },
+  { range: "50–500", unit: "gifts", name: "Enterprise", body: "Identical unboxing at scale with personalized notes and your branding on cards and tags." },
+  { range: "500+", unit: "gifts", name: "Bespoke", body: "Custom sourcing and brand-aligned packaging, managed from brief to pan-India dispatch." },
 ];
+
+const [bulk, boxed] = pick(["favor-boxes-with-keepsake-cards", "dry-fruit-gift-box-with-diwali-card"]);
 
 export function Corporate() {
   return (
-    <section id="corporate" className="bg-warm-white paper-grain py-28 md:py-36">
-      <div className="mx-auto max-w-[1280px] px-5 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        <Reveal className="lg:col-span-5 lg:sticky lg:top-28">
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-bronze">
-            — Corporate Gifting
-          </span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold text-charcoal leading-[1.15]">
-            Premium gifting,<br />
-            <span className="italic text-bronze">without the corporate.</span>
-          </h2>
-          <p className="mt-6 text-warm-gray text-lg leading-[1.7] max-w-lg">
-            For clients you actually want to keep. For teams that notice
-            details. We handle sourcing, personalization, and logistics — you
-            get to be the person who sent the perfect gift.
-          </p>
-          <div className="mt-8 overflow-hidden rounded-3xl shadow-soft">
-            <img
-              src={corporate}
-              alt="Stacked corporate gift boxes with bronze ribbon on warm wood desk"
-              loading="lazy"
-              width={1000}
-              height={800}
-              className="w-full aspect-[5/4] object-cover"
-            />
+    <section aria-labelledby="corporate-title" className="bg-porcelain py-20 md:py-28">
+      <div className="page-x">
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <h2 id="corporate-title" className="font-display text-[34px] font-medium leading-[1.1] text-ink md:text-5xl">
+              Corporate gifting, handled end to end.
+            </h2>
+            <p className="mt-5 max-w-[60ch] text-base leading-relaxed text-ink-soft md:text-lg">
+              For clients you want to keep and teams that notice details. We source, brand, pack and dispatch across India, and you deal directly with the studio.
+            </p>
           </div>
-        </Reveal>
-
-        <div className="lg:col-span-7 space-y-6">
-          {tiers.map((t, i) => (
-            <Reveal key={t.tier} delay={i * 120}>
-              <div className="group rounded-3xl border border-beige bg-cream p-8 md:p-10 transition-all duration-500 hover:shadow-lift hover:-translate-y-1">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-2xl md:text-3xl font-semibold text-charcoal">
-                    {t.tier}
-                  </h3>
-                  <span className="text-xs uppercase tracking-[0.2em] text-bronze whitespace-nowrap">
-                    {t.range}
-                  </span>
-                </div>
-                <p className="mt-4 text-warm-gray text-[15px] leading-relaxed max-w-xl">
-                  {t.body}
-                </p>
-                <a
-                  href="#contact"
-                  className="mt-6 inline-flex link-underline text-sm font-medium text-olive"
-                >
-                  Request a quote →
-                </a>
-              </div>
-            </Reveal>
-          ))}
+          <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
+            <Link to="/corporate" className="btn-primary">
+              Plan a corporate order
+            </Link>
+            <Link to="/clients" className="btn-outline">
+              See real orders
+            </Link>
+          </div>
         </div>
+
+        <dl className="mt-12 grid border-y border-line md:grid-cols-3 md:divide-x md:divide-line">
+          {TIERS.map((t) => (
+            <div key={t.name} className="border-b border-line py-7 last:border-b-0 md:border-b-0 md:px-8 md:first:pl-0 md:last:pr-0">
+              <dt>
+                <span className="font-display text-4xl font-medium text-ink tabular-nums md:text-5xl">{t.range}</span>
+                <span className="ml-2 text-sm text-ink-soft">{t.unit}</span>
+                <span className="mt-3 block text-sm font-semibold text-ink">{t.name}</span>
+              </dt>
+              <dd className="mt-1.5 max-w-[36ch] text-[15px] leading-relaxed text-ink-soft">{t.body}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <figure className="mt-10 grid grid-cols-12 gap-3 md:gap-4">
+          <div className="col-span-7 overflow-hidden rounded-2xl bg-paper">
+            <CatalogImage photo={bulk.photos[0]} sizes="(min-width: 1024px) 55vw, 58vw" className="aspect-[4/3] size-full object-cover" />
+          </div>
+          <div className="col-span-5 overflow-hidden rounded-2xl bg-paper">
+            <CatalogImage photo={boxed.photos[0]} sizes="(min-width: 1024px) 38vw, 42vw" className="size-full object-cover" />
+          </div>
+          <figcaption className="col-span-12 text-[13px] text-ink-soft">
+            From real orders: keepsake favor boxes with custom Ganesha cards, and a dry-fruit box finished with a Diwali card.
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

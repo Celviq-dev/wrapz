@@ -1,21 +1,27 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/playfair-display/wght-italic.css";
+@import "@fontsource-variable/dm-sans";
 
 @custom-variant dark (&:is(.dark *));
 
-/* Sneha's Wrapzz — Luxury Gifting Design System
- * Warm ivory palette, editorial typography, soft motion.
- * All colors are semantic tokens. Never hardcode.
- */
+/* ───────────────────────────────────────────────────────────
+   Sneha's Wrapzz: plum & gold.
+   Palette read from the brand's own catalog: the gold seal, the plum headline and rose script of
+   "Words that mean the world", the sage contact panel. Gold is the single accent; plum is the dark
+   neutral; sage is reserved for WhatsApp. Shape lock: pills for anything you press, 16px for media
+   and panels, 12px for inputs (rounded-xl/2xl/3xl all resolve to 16px on purpose).
+   ─────────────────────────────────────────────────────────── */
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1rem;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -37,7 +43,24 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Brand tokens */
+  /* Brand */
+  --color-porcelain: var(--porcelain);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-plum-950: var(--plum-950);
+  --color-plum-900: var(--plum-900);
+  --color-plum-800: var(--plum-800);
+  --color-plum-600: var(--plum-600);
+  --color-rose: var(--rose);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-deep: var(--gold-deep);
+  --color-sage: var(--sage);
+
+  /* Earlier token names, remapped onto the brand palette */
   --color-ivory: var(--ivory);
   --color-cream: var(--cream);
   --color-warm-white: var(--warm-white);
@@ -47,56 +70,85 @@
   --color-charcoal: var(--charcoal);
   --color-warm-gray: var(--warm-gray);
   --color-olive: var(--olive);
-  --color-sage: var(--sage);
   --color-beige: var(--beige);
   --color-terracotta: var(--terracotta);
   --color-terracotta-deep: var(--terracotta-deep);
+  --color-obsidian: var(--obsidian);
+  --color-burgundy: var(--burgundy);
+  --color-saffron: var(--saffron);
+  --color-gold-start: var(--gold-start);
+  --color-gold-end: var(--gold-end);
+  --color-blush: var(--blush);
 
-  --font-display: "Playfair Display", ui-serif, Georgia, serif;
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display Variable", ui-serif, Georgia, serif;
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-statement: var(--font-display);
 
-  --shadow-soft: 0 10px 30px -12px color-mix(in oklab, var(--bronze) 20%, transparent);
-  --shadow-lift: 0 20px 60px -20px color-mix(in oklab, var(--bronze) 28%, transparent);
+  --shadow-soft: 0 1px 2px oklch(0.235 0.035 345 / 0.05), 0 10px 28px -16px oklch(0.235 0.035 345 / 0.22);
+  --shadow-lift: 0 2px 4px oklch(0.235 0.035 345 / 0.06), 0 24px 48px -24px oklch(0.235 0.035 345 / 0.32);
+  --shadow-glow-gold: var(--shadow-lift);
 }
 
 :root {
   --radius: 0.75rem;
 
-  /* Brand palette (converted from hex to oklch, warm) */
-  --ivory: oklch(0.985 0.012 70);      /* #FFFBF8 */
-  --cream: oklch(0.99 0.008 90);       /* #FFFEF9 */
-  --warm-white: oklch(0.97 0.008 75);  /* #F9F7F4 */
-  --champagne: oklch(0.79 0.045 55);   /* #D4AF9F */
-  --rose-gold: oklch(0.74 0.055 65);   /* #C9A885 */
-  --bronze: oklch(0.53 0.045 65);      /* #8B7355 */
-  --charcoal: oklch(0.23 0.012 50);    /* #2D2623 */
-  --warm-gray: oklch(0.47 0.008 55);   /* #6B6360 */
-  --olive: oklch(0.58 0.03 120);       /* #7A8B6B */
-  --sage: oklch(0.62 0.06 140);        /* #6B9A6B */
-  --beige: oklch(0.91 0.012 75);       /* #E8E3DD */
-  --terracotta: oklch(0.62 0.115 40);  /* warm terracotta for B2B CTAs */
-  --terracotta-deep: oklch(0.52 0.11 38);
+  --porcelain: oklch(0.985 0.004 60);
+  --paper: oklch(0.963 0.011 25);
+  --surface: oklch(0.995 0.002 60);
+  --line: oklch(0.905 0.012 30);
+  --ink: oklch(0.235 0.035 345);
+  --ink-soft: oklch(0.46 0.022 345);
+  --plum-950: oklch(0.185 0.035 345);
+  --plum-900: oklch(0.235 0.05 345);
+  --plum-800: oklch(0.3 0.07 348);
+  --plum-600: oklch(0.43 0.09 350);
+  --rose: oklch(0.7 0.08 12);
+  --gold: oklch(0.77 0.115 82);
+  --gold-light: oklch(0.86 0.075 86);
+  --gold-deep: oklch(0.52 0.09 72);
+  --sage: oklch(0.44 0.035 135);
 
-  --background: var(--ivory);
-  --foreground: var(--charcoal);
-  --card: var(--cream);
-  --card-foreground: var(--charcoal);
-  --popover: var(--cream);
-  --popover-foreground: var(--charcoal);
-  --primary: var(--sage);
-  --primary-foreground: var(--ivory);
-  --secondary: var(--warm-white);
-  --secondary-foreground: var(--charcoal);
-  --muted: var(--warm-white);
-  --muted-foreground: var(--warm-gray);
-  --accent: var(--champagne);
-  --accent-foreground: var(--charcoal);
-  --destructive: oklch(0.55 0.15 25);
-  --destructive-foreground: var(--ivory);
-  --border: var(--beige);
-  --input: var(--beige);
-  --ring: var(--champagne);
+  --ivory: var(--porcelain);
+  --cream: var(--surface);
+  --warm-white: var(--paper);
+  --champagne: var(--gold-light);
+  --rose-gold: var(--rose);
+  --bronze: var(--gold-deep);
+  --charcoal: var(--ink);
+  --warm-gray: var(--ink-soft);
+  --olive: var(--plum-600);
+  --beige: var(--line);
+  --terracotta: var(--plum-600);
+  --terracotta-deep: var(--plum-800);
+  --obsidian: var(--plum-950);
+  --burgundy: var(--plum-900);
+  --saffron: var(--gold);
+  --gold-start: var(--gold);
+  --gold-end: var(--gold-light);
+  --blush: var(--paper);
+
+  --background: var(--porcelain);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--plum-900);
+  --primary-foreground: var(--porcelain);
+  --secondary: var(--paper);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--gold-light);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.52 0.16 25);
+  --destructive-foreground: var(--porcelain);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--gold-deep);
 }
+
+/* ── Base ────────────────────────────────────────────────── */
 
 @layer base {
   * {
@@ -104,6 +156,8 @@
   }
   html {
     scroll-behavior: smooth;
+    /* anchor targets clear the fixed header */
+    scroll-padding-top: 5.5rem;
   }
   body {
     background-color: var(--color-background);
@@ -115,34 +169,78 @@
   }
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
-    color: var(--color-foreground);
+    color: inherit;
+    text-wrap: balance;
+  }
+  p, li, blockquote, figcaption, dd {
+    text-wrap: pretty;
   }
   ::selection {
-    background: color-mix(in oklab, var(--champagne) 40%, transparent);
+    background: color-mix(in oklab, var(--gold-light) 55%, transparent);
+    color: var(--ink);
+  }
+  /* Visible keyboard focus everywhere (WCAG 2.4.7); gold on dark grounds. */
+  :focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .section-dark :focus-visible,
+  .section-burgundy :focus-visible,
+  .on-dark :focus-visible,
+  footer :focus-visible,
+  #top :focus-visible {
+    outline-color: var(--gold);
   }
 }
 
-/* Subtle paper grain overlay utility */
-@utility paper-grain {
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.35;
-    mix-blend-mode: multiply;
-    background-image: radial-gradient(
-        circle at 1px 1px,
-        color-mix(in oklab, var(--bronze) 8%, transparent) 1px,
-        transparent 0
-      );
-    background-size: 3px 3px;
+/* ── Motion: entrances only, opacity + transform, ease-out ─ */
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes soft-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@utility animate-reveal {
+  animation: reveal-up 700ms ease-out both;
+}
+@utility animate-soft-fade {
+  animation: soft-fade 700ms ease-out both;
+}
+
+/* ── Structure ───────────────────────────────────────────── */
+
+@utility page-x {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1320px;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
   }
 }
 
-/* Elegant animated underline for text links */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--gold-deep);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @utility link-underline {
   position: relative;
   display: inline-block;
@@ -156,7 +254,7 @@
     background: currentColor;
     transform: scaleX(0);
     transform-origin: right center;
-    transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 200ms ease-out;
   }
   &:hover::after {
     transform: scaleX(1);
@@ -164,100 +262,158 @@
   }
 }
 
+@utility hairline {
+  height: 1px;
+  background: var(--line);
+}
+/* Grows the hit area of a standalone text link to about 44px tall without moving the layout. */
+@utility tap-area {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -12px -6px;
+  }
+}
 @utility ribbon-divider {
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in oklab, var(--champagne) 60%, transparent) 50%,
-    transparent 100%
-  );
+  background: var(--line);
+}
+@utility gold-divider {
+  height: 1px;
+  background: var(--gold);
+}
+@utility gold-gradient-text {
+  color: var(--gold-light);
+}
+@utility paper-grain {
+  position: relative;
 }
 
-@keyframes reveal-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+@utility glass-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
 }
-@keyframes soft-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+@utility glass-card-dark {
+  background: color-mix(in oklab, var(--porcelain) 5%, transparent);
+  border: 1px solid color-mix(in oklab, var(--porcelain) 12%, transparent);
+  border-radius: var(--radius-xl);
 }
-@keyframes ribbon-sway {
-  0%, 100% { transform: rotate(-2deg) translateY(0); }
-  50%      { transform: rotate(2deg) translateY(-4px); }
-}
-@keyframes float-particle {
-  0%   { opacity: 0; transform: translateY(20px) scale(0.6); }
-  30%  { opacity: 0.9; }
-  100% { opacity: 0; transform: translateY(-140px) scale(1.1); }
+@utility shimmer-skeleton {
+  background: var(--paper);
+  border-radius: var(--radius-md);
 }
 
-@utility animate-reveal {
-  animation: reveal-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+@utility section-dark {
+  background-color: var(--plum-950);
+  color: var(--porcelain);
 }
-@utility animate-soft-fade {
-  animation: soft-fade 1200ms ease-out both;
+@utility section-burgundy {
+  background-color: var(--plum-900);
+  color: var(--porcelain);
 }
-@utility animate-ribbon-sway {
-  animation: ribbon-sway 6s ease-in-out infinite;
+@utility section-blush {
+  background-color: var(--paper);
 }
+@utility section-gold-wash {
+  background-color: var(--paper);
+}
+
+/* ── Interaction ─────────────────────────────────────────── */
 
 @utility card-lift {
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms ease;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+@utility card-tilt-3d {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  &:hover {
+    transform: translateY(-2px);
     box-shadow: var(--shadow-lift);
   }
 }
 
+/* Buttons: one shape (pill), one height (44px touch target), three weights. */
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding-inline: 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out, transform 150ms ease-out;
+  &:active {
+    transform: scale(0.98);
+  }
+}
 @utility btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 0.5rem;
-  background: var(--sage);
-  color: var(--ivory);
-  padding: 0.85rem 1.6rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-soft);
-  transition: transform 300ms ease, box-shadow 300ms ease;
-  &:hover { transform: scale(1.03); box-shadow: var(--shadow-lift); }
+  @apply btn-base;
+  background: var(--plum-900);
+  color: var(--porcelain);
+  &:hover {
+    background: var(--plum-800);
+  }
 }
-
 @utility btn-terracotta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 0.5rem;
-  background: var(--terracotta);
-  color: var(--ivory);
-  padding: 0.85rem 1.6rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-soft);
-  transition: transform 300ms ease, box-shadow 300ms ease, background 300ms ease;
-  &:hover { transform: scale(1.03); background: var(--terracotta-deep); box-shadow: var(--shadow-lift); }
+  @apply btn-primary;
+}
+@utility btn-gold {
+  @apply btn-base;
+  background: var(--gold);
+  color: var(--plum-950);
+  &:hover {
+    background: var(--gold-light);
+  }
+}
+@utility btn-outline {
+  @apply btn-base;
+  background: transparent;
+  border-color: color-mix(in oklab, var(--ink) 22%, transparent);
+  color: var(--ink);
+  &:hover {
+    border-color: var(--ink);
+  }
+}
+@utility btn-glass {
+  @apply btn-base;
+  background: transparent;
+  border-color: color-mix(in oklab, var(--porcelain) 35%, transparent);
+  color: var(--porcelain);
+  &:hover {
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+  }
+}
+@utility btn-whatsapp {
+  @apply btn-base;
+  background: var(--sage);
+  color: var(--porcelain);
+  &:hover {
+    background: oklch(0.39 0.035 135);
+  }
 }
 
-@utility btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--beige);
-  background: var(--cream);
-  color: var(--charcoal);
-  padding: 0.85rem 1.6rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  transition: border-color 300ms ease, background 300ms ease;
-  &:hover { border-color: var(--bronze); background: var(--ivory); }
-}
+/* ── Reduced motion ──────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
